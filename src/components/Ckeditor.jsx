@@ -1609,7 +1609,7 @@ const MATH_GROUPS = [
                 <line x1="12" y1="3" x2="12" y2="21" stroke="#666" strokeWidth="2" strokeLinecap="round" />
               </svg>
             ),
-            insert: '\\enclose{verticalstrike}{#?}',
+            insert: '\\class{cme-vertical-strike}{#?}',
             title: 'Vertical strike'
           },
 
@@ -1635,7 +1635,7 @@ const MATH_GROUPS = [
                 <line x1="12" y1="3" x2="12" y2="21" stroke="#666" strokeWidth="2" strokeLinecap="round" />
               </svg>
             ),
-            insert: '\\enclose{horizontalstrike}{\\begin{array}{c@{}} \\raisebox{-8px}{\\enclose{verticalstrike}{\\vphantom{\\rule{0pt}{14px}}#?}} \\end{array}}',
+            insert: '\\class{cme-horizontal-vertical-strike}{#?}',
             title: 'Horizontal and vertical strike'
           },
 
@@ -3418,7 +3418,7 @@ const CHEM_GROUPS = [
                 <line x1="12" y1="3" x2="12" y2="21" stroke="#666" strokeWidth="2" strokeLinecap="round" />
               </svg>
             ),
-            insert: '\\enclose{verticalstrike}{#?}',
+            insert: '\\class{cme-vertical-strike}{#?}',
             title: 'Vertical strike'
           },
 
@@ -3444,7 +3444,7 @@ const CHEM_GROUPS = [
                 <line x1="12" y1="3" x2="12" y2="21" stroke="#666" strokeWidth="2" strokeLinecap="round" />
               </svg>
             ),
-            insert: '\\enclose{horizontalstrike}{\\begin{array}{c@{}} \\raisebox{-8px}{\\enclose{verticalstrike}{\\vphantom{\\rule{0pt}{14px}}#?}} \\end{array}}',
+            insert: '\\class{cme-horizontal-vertical-strike}{#?}',
             title: 'Horizontal and vertical strike'
           },
 
@@ -4177,11 +4177,16 @@ function MathChemPopup({ mode, onInsert, onClose, initialLatex, isEditing }) {
     fontSize: 'auto'
   });
 
+let globalIsTyping = false;
+let globalTypingTimeout = null;
+
   const updateActiveStyles = useCallback(() => {
+    if (globalIsTyping) return;
     const mf = popupMfRef.current;
     if (!mf || typeof mf.queryStyle !== 'function') return;
     try {
       const bold = (
+        mf.queryStyle({ fontSeries: 'bold' }) === 'all' ||
         mf.queryStyle({ fontSeries: 'b' }) === 'all' ||
         mf.queryStyle({ variantStyle: 'bold' }) === 'all'
       );
@@ -4313,21 +4318,70 @@ function MathChemPopup({ mode, onInsert, onClose, initialLatex, isEditing }) {
     if (!mf) return;
     const handleKeyDown = (e) => {
       // Forcefully apply bold/italic states via explicit LaTeX wrappers to bypass MathLive's buggy future-style insertion on empty lines
+      if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+        globalIsTyping = false;
+        clearTimeout(globalTypingTimeout);
+      } else if (e.key.length === 1 || e.key === ' ') {
+        globalIsTyping = true;
+        clearTimeout(globalTypingTimeout);
+        globalTypingTimeout = setTimeout(() => {
+          globalIsTyping = false;
+        }, 500);
+      }
+
       if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
         if (/[a-zA-Z0-9]/.test(e.key)) {
-          e.preventDefault();
-          e.stopPropagation();
-          let latex = e.key;
-          if (activeStyles.bold && activeStyles.italic) {
-            latex = `\\mathbfit{${e.key}}`;
-          } else if (activeStyles.bold) {
-            latex = `\\mathbf{${e.key}}`;
-          } else if (activeStyles.italic) {
-            latex = `\\mathit{${e.key}}`;
-          } else {
-            latex = `\\mathrm{${e.key}}`;
+          const actualBold = mf.queryStyle({ fontSeries: 'bold' }) === 'all' || mf.queryStyle({ fontSeries: 'b' }) === 'all' || mf.queryStyle({ variantStyle: 'bold' }) === 'all';
+          const actualItalic = mf.queryStyle({ variantStyle: 'italic' }) === 'all' || mf.queryStyle({ shape: 'it' }) === 'all';
+          const rawFamily = ['roman', 'sans-serif', 'monospace'].find(f => mf.queryStyle({ fontFamily: f }) === 'all') || 'none';
+          const actualFamily = rawFamily === 'none' ? 'roman' : rawFamily;
+          const targetFamily = activeStyles.fontFamily === 'none' || !activeStyles.fontFamily ? 'roman' : activeStyles.fontFamily;
+          
+          const rawActualSize = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].find(sz => mf.queryStyle({ fontSize: sz }) === 'all') || 'auto';
+          const actualSize = rawActualSize === 'auto' ? 5 : rawActualSize;
+          const targetSize = activeStyles.fontSize === 'auto' ? 5 : activeStyles.fontSize;
+          
+          const actualColor = ['black', 'dimgray', 'gray', 'darkgray', 'silver', 'white', 'red', 'orange', 'yellow', 'lime', 'cyan', 'blue', 'purple', 'magenta'].find(c => mf.queryStyle({ color: c }) === 'all') || 'none';
+          const targetColor = activeStyles.color;
+
+          // ALWAYS force an explicit wrap for a-zA-Z0-9 to guarantee the text is upright by default 
+          // and respects our exact font families, bypassing MathLive's native math-italic variables.
+          const needsExplicitWrap = true;
+
+          if (needsExplicitWrap) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            let latex = '#?';
+
+            let inner = latex;
+            if (targetFamily === 'sans-serif') inner = `\\textsf{${inner}}`;
+            else if (targetFamily === 'monospace') inner = `\\texttt{${inner}}`;
+            else inner = `\\textrm{${inner}}`;
+
+            if (activeStyles.bold) inner = `\\textbf{${inner}}`;
+            if (activeStyles.italic) inner = `\\textit{${inner}}`;
+
+            latex = `\\text{${inner}}`;
+
+            if (targetSize !== 5) {
+               const sizeMap = { 1: '\\tiny', 2: '\\scriptsize', 3: '\\footnotesize', 4: '\\small', 5: '\\normalsize', 6: '\\large', 7: '\\Large', 8: '\\LARGE', 9: '\\huge', 10: '\\Huge' };
+               if (sizeMap[targetSize]) latex = `{${sizeMap[targetSize]} ${latex}}`;
+            } else if (actualSize !== 5) {
+               latex = `{\\normalsize ${latex}}`;
+            }
+
+            if (targetColor !== 'none') {
+               latex = `\\textcolor{${targetColor}}{${latex}}`;
+            } else if (actualColor !== 'none') {
+               latex = `\\textcolor{black}{${latex}}`;
+            }
+
+            mf.executeCommand(['insert', latex]);
+            mf.executeCommand(['insert', e.key]);
+            return;
           }
-          mf.executeCommand(['insert', latex]);
+
           return;
         }
       }
@@ -4562,13 +4616,13 @@ function MathChemPopup({ mode, onInsert, onClose, initialLatex, isEditing }) {
                     const isFont = item.label === 'Font...';
                     const isSize = item.label === 'Size';
 
-                    const isFontActive = isFont && activeStyles.fontFamily !== 'none';
-                    const isSizeActive = isSize && activeStyles.fontSize !== 'auto' && activeStyles.fontSize !== '5';
+                    const isFontActive = isFont && activeStyles.fontFamily !== 'none' && activeStyles.fontFamily !== 'roman';
+                    const isSizeActive = isSize && activeStyles.fontSize !== 'auto' && activeStyles.fontSize !== 5;
 
                     const selectValue = isFont
-                      ? (activeStyles.fontFamily === 'none' ? '' : activeStyles.fontFamily)
+                      ? (activeStyles.fontFamily === 'none' || activeStyles.fontFamily === 'roman' ? '' : activeStyles.fontFamily)
                       : (isSize
-                        ? (activeStyles.fontSize === 'auto' || activeStyles.fontSize === '5' ? '' : activeStyles.fontSize)
+                        ? (activeStyles.fontSize === 'auto' || activeStyles.fontSize === 5 ? '' : activeStyles.fontSize.toString())
                         : '');
 
                     return (
@@ -4592,12 +4646,12 @@ function MathChemPopup({ mode, onInsert, onClose, initialLatex, isEditing }) {
                         onChange={(e) => {
                           const val = e.target.value;
                           const mf = popupMfRef.current;
-                          if (!mf || typeof mf.applyStyle !== 'function') return;
+                          if (!mf) return;
                           mf.focus();
                           if (isFont) {
-                            mf.applyStyle({ fontFamily: val || 'none' });
+                            mf.executeCommand(['applyStyle', { fontFamily: val || 'none' }]);
                           } else if (isSize) {
-                            mf.applyStyle({ fontSize: val ? parseInt(val, 10) : 'auto' });
+                            mf.executeCommand(['applyStyle', { fontSize: val ? parseInt(val, 10) : 'auto' }]);
                           }
                           updateActiveStyles();
                         }}
@@ -4605,7 +4659,7 @@ function MathChemPopup({ mode, onInsert, onClose, initialLatex, isEditing }) {
                         <option value="">{item.label}</option>
                         {isFont && (
                           <>
-                            <option value="roman">Times</option>
+                            <option value="roman">Normal (Times)</option>
                             <option value="sans-serif">Helvetica</option>
                             <option value="monospace">Courier</option>
                           </>
@@ -4693,23 +4747,17 @@ function MathChemPopup({ mode, onInsert, onClose, initialLatex, isEditing }) {
                           const rect = e.currentTarget.getBoundingClientRect();
                           setShowColorPicker({ x: rect.left, y: rect.bottom + 4 });
                         } else if (item.action === 'BOLD') {
-                          if (mf && typeof mf.applyStyle === 'function') {
+                          if (mf) {
                             mf.focus();
                             const newBold = !activeStyles.bold;
-                            mf.applyStyle({
-                              fontSeries: newBold ? 'b' : 'auto',
-                              variantStyle: activeStyles.italic ? 'italic' : 'up'
-                            });
+                            mf.executeCommand(['applyStyle', { fontSeries: newBold ? 'b' : 'auto' }]);
                             setActiveStyles(prev => ({ ...prev, bold: newBold }));
                           }
                         } else if (item.action === 'ITALIC') {
-                          if (mf && typeof mf.applyStyle === 'function') {
+                          if (mf) {
                             mf.focus();
                             const newItalic = !activeStyles.italic;
-                            mf.applyStyle({
-                              fontSeries: activeStyles.bold ? 'b' : 'auto',
-                              variantStyle: newItalic ? 'italic' : 'up',
-                            });
+                            mf.executeCommand(['applyStyle', { variantStyle: newItalic ? 'italic' : 'up' }]);
                             setActiveStyles(prev => ({ ...prev, italic: newItalic }));
                           }
                         } else if (item.action === 'UNDO') {

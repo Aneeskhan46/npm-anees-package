@@ -1,10 +1,10 @@
-import e, { useRef as F, useEffect as R, useState as I, useMemo as te, useCallback as q } from "react";
+import e, { useRef as F, useEffect as R, useState as B, useMemo as te, useCallback as q } from "react";
 import { createPortal as K } from "react-dom";
 import { FontAwesomeIcon as Y } from "@fortawesome/react-fontawesome";
 import { faBold as de, faItalic as pe } from "@fortawesome/free-solid-svg-icons";
 import { CKEditor as Ce } from "@ckeditor/ckeditor5-react";
 import { MathfieldElement as ae } from "mathlive";
-import { Essentials as Le, Bold as Se, Italic as Te, Underline as We, Paragraph as Ie, Heading as Be, Table as De, TableToolbar as Ne, TableCellProperties as Re, TableProperties as He, List as Oe, Link as Ue, Undo as Ve, ClassicEditor as Pe, Plugin as be, ButtonView as oe, Widget as qe, toWidget as Fe } from "ckeditor5";
+import { Essentials as Le, Bold as Se, Italic as Te, Underline as We, Paragraph as Be, Heading as Ie, Table as De, TableToolbar as Ne, TableCellProperties as Re, TableProperties as He, List as Oe, Link as Ue, Undo as Ve, ClassicEditor as Pe, Plugin as be, ButtonView as oe, Widget as qe, toWidget as Fe } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 const ge = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAIABJREFUeJzt3XeYJVWd//H35BkYhjDkHCQIksGcxSzoqqjoihEVUFF/rqyuuuqa1jWLKKZFhJ+YA2BYw6pgAhFQCSJJBoacJzKhf3+c2z+adnrmdvet+6mq+349z3m6JzxPfU9V3Trfe+oEkCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQpaUo6AKkHZgHrAfM6v28w4t9mA3PG+P/SsCXA8lF/txRYNuLP93T+z93AYuDe/oQmVcMEQHUwF5jfKZt2fm4y4u+Gf9+I0qBvSGnUZ3f+zvtYCUPAnZQkYWnn9+Wdn7d1yu2jfr9lxN8t6n/I0n18cKpqGwNbA1uN+LnziN93oTTi0qBZBiwEbuj8vGrE78M/rwFWh+JTy5kAqBc2pjTqOwN7AXt2ft+d8u1e0sTcC1xHSQ4uAS7u/H4VcDWlF0KaEBMAjcdWwH7Avp2yG7Ar93/nLqk/7gb+BlwOXARc2Pl5YzIoNYcJgNZkGrAD5dv8gSPKVsmgJHXlDkpvwfkjymXAqmRQqh8TAEHppt8PeATwyE7xvbzUHospPQTnAL/u/LwjGpHiTAAG07bAo4CHUxr7vSnf+iUNhlWU1wW/5r6E4PpoROo7E4DBMJvS0B/SKQdmw5FUQ1cBPwXOBH7C/ddAUAuZALTXztzX4D8FB+pJ6t5SSs/ATzvl/Gw4qoIJQLscDDwPeDYlAZCkXrgS+DbwdeAP4VjUIyYAzbcXcDjwQsqUPEmq0rXAd4FvUHoJXIugoUwAmmk/4AWUht9v+pJSrqT0CpwO/Ckci8bJBKA5NgCOAI6kTNeTpDo5H/gc8FXKxkmqOROA+jsQeBWli99ldSXV3VLKTILPUQYQqqZMAOppLvASSsO/TzgWSZqoCymJwCmUxYhUIyYA9bIZcCzwWsr2t5LUBncBXwY+SNnpUDVgAlAPOwFvAF4JrBeORZKqspwyaPC9lE2MFGQCkHUgcDxl3r5L8UoaFKso0wg/BFwQjmVgmQBk7A78B/BcvAaSBtuZwP/BHoG+m5oOYMBsA5wE/IUyh9/GX9KgewZwMeXZuHU4loFit3N/zAXeCHyNsgOfiZck3Wcq5ZXo0cA8ynLDbkZUMROAak0DXkdZNvNQYFY2HEmqtRmUnUuPApZQFhdyqeGK2AVdnf2BzwIPTgciSQ11AfAa4Nx0IG1kV3TvbQh8AjgPG39Jmoz9gd9SxgfMC8fSOr4C6K1DgbOAJ2JyJUm9MIUyPuClwC3ARdFoWsRXAL2xJfAl4KnpQCSp5c6gLJp2czqQpjMBmLwnAydTkgBJUvVuAV5BSQY0QXZTT9xsyrv+H2LjL0n9tBnwPcrYAJdPnyB7ACbmQcBpuFOfJKVdStku/cJ0IE3jIMDxez1lDett0oFIktiMMkDwTsrsK3XJHoDuzQJOBF6eDkSStEanUhYRchXBLpgAdGcr4FvAw9KBaI0WA/cC9wArKd8EVnd+rsmduLqY7m8KsNEY/7YRZbzURsB0YAPKFwLfPdfTr4HnADelA6k7E4B1Owj4DrBtOpCWux24kTK15/rOn+8E7uj8XFNZBixNBCt1zKEMCN5oVNl41J/nUza62ZzyhWLjRLADZAHwLOCP6UDqzARg7V4EfJ7yIdfE3Q5cDVzTKVdTPqDDjf3NwPJQbFLCLGAL7ksKtgd2BHbq/NwR2CQTWmssoUwVPD0dSF2ZAIztX4H34znq1lLKaNxLKFt7XkZp6K8G7g7GJTXVhpREYGdgD2AvYM/O734p6c4Q8Bbgw+lA6sjG7R9NAT4AHJ8OpMauoWzOcQH3NfhXU967S6rWVEpSsBfwQOAAyr4jOySDqrn3A/+WDkL1NgX4OCVrtJRyB3AO8EHKXgdbTPjsSqrShpStdI+nrJB3I/nnR53KZ3DxO41hOmVJ3/RNmi63UB4ex1M24LCXSGqunYFXAacA15F/vqTL/wVmTOqMqnXmAGeSvzkTZQmlwT8O2BsbfKmtplBWLz2O8rxbQv75kyjfp8zckJjB4DX+t1K+ERxOmdMsafDMobzWOwlYSP651M9yBvYEDLyplC6h9M3Yj7IA+C/KO0KXgJY00jTgUcBHKFNz08+rfpRTcUzAwJoCfJb8TVhlWQp8nZLlT+/NaZPUclMpXxROoqyumX6OVVlO7NE5U8N8kPzNV0VZDfwceAkwt2dnS9Ig2oCy0c4vyD/bqirv69G5UkO8lfxN1+uyjPJef+8enidJGrY78AnK3hvp512vy1t6eJ5UYy+ifEtO33C9KgsoCc38Xp4kSRrDZpRFddo0VmA18PxeniTVz0G0Z+rLFcCROJJVUsYMyuuBq8g/D3tRFlNWVVQLbUn5tpy+ySZb/k5Z2MNBfZLqYAbly8gV5J+Pky3XUzZoUovMAn5D/uaaTFkAHA3M7PG5kaRemAkcS/NXHDwbn7Ot8nnyN9VEy72UgTcu2COpCdYD3kWZhpx+fk60nNzjc6KQ15O/mSZazgQe0PtTIkmV2xX4Afnn6ETLMb0/Jeqn/SjT49I30njLlcAzKjgfktRvz6RsF55+ro63LMVp1Y01G/gT+ZtovOUUXMBHUrusR3mV2bQp2BdT9kxQw5xI/uYZT7mRsmSvJLXVk2ne+gGfqORMqDJPpVmZ5jeBTSs5E5JUL5sB3yb/3O22rMZXso2xFXAz+Zumm7IceE01p0GSau1Yyiyn9HO4m3IjsHk1p0G91JRRpzcAj6joHEhSEzyK0rimn8fdlO9VdA7UI0eQv0m6KecD21d0DiSpSbYBfkf+udxNeU5F50CTtCGwkPwNsq5yMmVlQklSMRs4lfzzeV3lOlyUrZZOIH9zrKt8EphS1QmQpAabAnyY/HN6XeVjVZ0ATcxBwEryN8baygcrq70ktcfx5J/XaysrcdfA2phGeaeevinGKquBN1RWe0lqn6OBVeSf32OV8yhtj8LqvNb/KuCfq6u6JLXWkdQ7CTi2uqqrGxsBt5K/EcYqx1VXdUlqvWPIP8fHKrdQBp8r5IPkb4KxylsrrLckDYp3kn+ej1X+o8J6ay22BhaTvwHWVFw7WpJ6p66zAxZRVp9Vn32O/MVfUzkZp/pJUi9Nob7rBJxYYb21BrsDK8hf+NHld7jIjyRVYTZwLvnn/OiyAtijwnprlDruJHUjsG2VlZakAbc19Vzx9WtVVlr3OYj6bfW7HDf2kaR+eDT120VwNbBvlZVW8XXyF3t0cUtfSeqf15J/7o8up1VaY7Ez9Vvy99uV1liStCbfIP/8H1lWArtUWuMB9xnyF3lkuQnYvNIaS5LWZFPgBvLtwMjyyUprPMA2B5aQv8DDZTXw9EprLElam0PJtwUjy2JKYqIeey/5izuyOPdTkvK+QL49GFn+vdrqDp65wG3kL+xwuRJYv9IaS5K6sQFwDfl2YbjcAqxXZYUHTd1GfD6j2upKksbhn8i3CyOLM8N66ALyF3S4/KjiukqSxu8H5NuH4XJhxXUdGA8hfzGHy3Jgt2qrK0magAcAy8i3E8PlgGqrO3lT0wF04ah0ACN8CLg8HYQk6R9cAXw8HcQIdWq7GmkecA/5TG4IuA4HdkhSnc0FriffXgwBd3Xiqa269wAcQX1O4Hsp6xBIkuppEfCBdBAd84DnpYNosj+Qz+KGgL8DMyuuqyRp8mYCV5NvN4aA31Zc19baj/zFGy6vqLiukqTeeTX5dmO4PKjiurbSf5K/cEOUgSUzKq6rJKl3ZlAWbEu3H0OU18cahynU5+IdWXFdJUm993Ly7ccQzhwbt4PJX7Qhysh/v/1LUvPMoDzD0+3IELB/xXWdkLrOAjg8HUDHCcCKdBCSpHFbAZyUDqKjLm1aI9Sh+38JML/qikqSKrMZsJR8e3Il5dW21uHB5C/WEPXJHCVJE/cl8u3JEHBg1RUdrzq+AqhLV8mn0wFIkibto5QGOK0ubVut1aH7/+eV11KS1C+/It+u1G42QN16AHYHdk4HAXw5HYAkqWdOSQcA7Arskg6izo4jn6UtAjaouqKSpL6ZBywm374cW3VFx6NuPQBPTgcAfIuyA6EkqR3uBr6XDoJ6tHG1NJt6ZGiHVF1RSVLfPZV8+7IImFV1RZvoKeQvznXAtKorKknqu2nAQvLtzBOqrmi36vQKoA5dI18FVqWDkCT13Crga+kgKF92Ncql5DOzR1ReS0lSymPItzN/qryWDbMd+YtyM3b/S1KbTQduJdvWrAa2rLqi3ajLK4BHpgMAzsDuf0lqs5XAWeEYplCPNq82CUAdut6/nw5AklS5OkwHrEObVxsXkO2SWQKsX3ktJUlp65PfIfDcymvZEBtQumWSF+OMymspSaqLs8i2OfdSgy+ddXgF8DDyg+9+Gj6+JKl/fhY+/gzgIeEYapEA1OFdiLv/SdLg+N90ANSj7Yv7GdmumFupRyIkSeqPqcAtZNueH1Vey3VIN3zTgAeHY/g5ZV6mJGkwrAZ+FY7hYYTb4HQCsAcwNxxDHbqCJEn99Yvw8ecBuyYDSCcA+4aPD77/l6RBVIcvf9E2cNATgJuBv4ZjkCT138XAbeEY9ksePJ0ARCuPizFI0qAaAv4QjiH6JXh68uDkewDSF1+q0jRgk06Z2ykzOv+2PjCz8/u9wOLO7yuARZ1ye6e4R4ba6jyyW9FHvwQnE4CtgC2Cx4dy8aUm2hjYDdge2BbYofNzW8rnahPKIKNeuJuSCNwEXAcsAK7t/FwAXA7c0aNjSf2UbgO2BjanvI7uuymJg3Y8FfhB8PhQTvwt4RiktVkfOAB4ELAX8EBgT2qynegINwCXAJdR3q3+Bfgj9/UsSHW0JeXeTXoy8D+JAyd7ANLv/6/Gxl/1Mo3yWuwhwEHAwZTGPr1Udje26pQnjPi7VZSk4LxOORe4CF8pqD5upPRibReMYT8GMAHYJ3hsyHf9SFMo3+wf3ymPATaMRtRb04C9O+Xlnb+7k7IAy88pq4BeTBmMJaWcRzYBSLeFEeeTXYbxX6uvovQP5gHPA06lvFNPfgbqUG4CvgIcTtkZVOq3t5P9DAzkbLS7yZ70w6qvogSUgXnHAD8GlpNvdOtallHWRz8a2GZCZ1oav2eTve8HbgDtluQfNrtUXksNsg2BI4EzgJXk7/emlVXAOcBxwPxxnntpPPYgf79vVnkta+RRZE/2EvKLIKl9pgOHAl8DlpJ/qLSlLAFOB55Bfu0Stc90Su9T8h4fqK2BX0H2ZJ9ffRU1QLYEjgeuId9Ytr0sBD5IdtCW2udPZO/rl1RfxX+U+hYc3QGJMvJYmqwDgVMoi+J8kLIYj6q1FSXZupryeuUQsuuZqB3SbUKkTRzUBOCS8PHVXFMp3fznUpaSfjH3La+r/plGeSXwE+BCyngLXw9ootJtwm7h4/dVurvlWdVXUS0zG3gNcAX5bnDLmssVwKuBWWNcQ2kszyV7715QfRXrYQpledDkyU5vQqTmmA28ibJcaLqBs3RXFgJv7Fw7qRsHkL1nF1VfxXrYnPwDok2rrakaUymL01xF/n61TKwsAF6Frwa0bpuQv183qbyWNZDOtG6rvopqsCmUd/zp11SW3pXLKMmcgwW1NneSvU/7viRwYhDg1oFjjnR1+Piqr4OB3wHfp6xfr3bYHfg68BvKJkvSmqTbhm37fcBEArB94JgjpS+y6mcT4BPAb4EHh2NRdR5Kmb1xCuVVpDTSNeHjD0QCkF7j+5rw8VUfUynTx/4KvJ5mbLuryZlCmbp5GWWZYa+5hqW/HPa9bUwkAH3Pcka5Jnx81cODKN39XwY2Dcei/tsY+DhlVdD9w7GoHq4JH38gEoB0D8CC8PGVNZ2yktwfKO/8Ndj2BX5PWclxZjgWZaXbhoF4BZDuAbgxfHzl7EP51v9BXCxG95nBfUmhgwQHV7ptSLeNfXEP2akWO1RfRdXMNOCdwAryU9Is9S73Am/H3UIH0U5k7707q69i1gZkT/Bq/OY3aLYB/pd8w2JpVvk5+deV6q855O+7OZXXcoR+Z7nz+3y80e4AlodjUP8cBlwEPDYch5rncZRNhg5NB6K+WQrcFY6hr21kvxOA9FKHN4WPr/6YSZnX/13ySaeaa1Pge5TZAg4QHAzpcQCtTgDS060Who+v6m0K/Jgyr9+lXzVZUyjrBfwc2DIci6pnAlAhewBUpYMp22o+NhyH2ucRlFUEnSXQbiYAFUr3ANwSPr6q80LglwzIVBpFbAecA7wsHYgqc2v4+K1OANI9AHeHj6/emwp8BDiNPo+g1UCaBXwJ+BC+Ymqj9FS8VicA6R6AO8LHV2/NpDT8b0oHooHzL8A3gNnpQNRTJgAVSvcAmAC0xwbAGcAL0oFoYD0H+CGwUToQ9cxAJQDT+3kw8glAeo6nemMbyoN373QgDTAE3N4pd3Dfa7AhysNuKrDhiP+/EeUhtDE2bN14LPAr4KnA9dlQ1APpL4mtTgA2XPd/qVQ6u9PkPQD4GbB9OpCaWE3ZxewS4FLg78C1lI1NrmdyA1+nAptTBr9tSznnOwF7Ant0/l4lEf0N8ATginAsmpx0G9HXNrLfCcD6fT7eaOmLq8nZjcFeonUlcDFwXqf8gdLoL63oeKsp06Ju7BxvtHnAXpTpl8NlNwZzcNz2wC8oKwj+LRuKJiHdRqTbyEpdQXad5R0rr6GqshtwHfm1uvtZVlEa/JOAw8n3oHVjA+AQyo6Lf6AkEenz2M9yI6WHRM20C9n756/VVzFnIdmTmx6DoInZg/y906+yCPgW8BLys2Z6YTvgGMrqjMvJn99+lOuB3Xtx8tR3m5K9d66rvoo5d5E9uc4Tb55daH/jvwQ4nbLxTJunlc2jLNh0Fu3fmvl6YOfenDb10fpk75v0IMRKJT/0qxnMd5NNtgX510ZVll9SVpWb16sT1iBbUNbYv5D8daiq/I0yiFLNMZXsa6vW7lY7i+yHcXH1VVQPzQPOJ/8Q73W5m/JOf5/enarGO5ByThaTvz69LhfhdMqmWUb2nplRfRX7bxOyJzW9xrO6N4sy1S/98O5luQZ4HTC3d6epdTYF3kmZupi+Xr0sP8XthJvkdrL3SysTxu3IntQF1VdRPTAF+Br5h3avyp+Bf6b/U26bbD3Kds7XkL9+vSpfxVeQTXE92XulldOc9yB7Ui+vvorqgXeRf1j3olwGHEn/l9tukxnAq8g/kHtV3t7b06OKXEn2Ptm1+ir23/5kT+pF1VdRk/Rsmj9v/FrgFfiNv5fWA44n3zU72bIKeGaPz416789k75N9q69i/x1M9qT+tvoqahL2Ae4h/5CeaFlC6b1wqml1NgFOpKyImL7eEy13Aw/q9YlRT/2e7D1yYPVV7L+Hkj2pv6q+ipqgTYGryT+cJ1q+jatM9tN+wNnkr/tEy5X0edMXjcs5ZO+Ph1RfxaKf7yen9fFYa7IqfHyt2RTgFJrZgF4HPIPy6uKabCgD5ULg0ZRXLem12ydiZ+BkHBRYV+m2om9tZT8TgPQ70fRF1Zq9mbKVapMMAV+hvKs7KxzLoBoCvgQ8kNID0zTPAN6QDkJrlG4r0l+WK/F4st0qP66+ihqnhwD3ku+SHU+5lnIvq16OoCyjmr4/xlOWU8ZGqV5+Qva+eFz1VSzsAVDKhpS50U1a9eq7lNksP08Hon/wVUqPzDnpQMZhJmUPiCbs8jhI0m1FK18BpLs1VoePr/v7DLBTOoguLaXsaPdPwG3hWDS2aynfnt5Hcz7vOwOfTgeh+0knAH37smwPgBIOo3TZNsF1wGMoCYvqbyVlwZ2n0Zyd1V5EGUiqeki3FfYAVCB9UVXMBz6XDqJLZwMHAeelA9G4/Zjyfv3P6UC69GnKOgfKS7cVrewBSCcATekSbLtPUbaCrbtPUQb73ZQORBN2JfBwmjFLYEvg4+kgBJgANP5Ya2ICkPcs6t/1vxp4E2UzmpXhWDR5i4DDgU+kA+nCi4FD00Eo3lb0ra1MN8oaHOtR/4fwcsr72I+lA1FPrabMuX8D+Yf7unwaWD8dhAaDCYD65Z3A9ukg1uJu4MmUaVlqp08ALwRWpANZi+2At6aD0GAwAVA/PIB6r3p2J6Xx/2U6EFXua5RXUcvSgazFvwC7pYNQ+5kAqB8+CcxKBzGGOyiN/+/SgahvfkBZ06GuScBMyiBUqVImAKraM6nvWv93UBaOOTcdiPruR5Qk4N50IGN4EmW/AKkyJgCq0jTgA+kgxrCUkpxclA5EMT8CXkB+2tdYPkx+ATW1mAmAqvRSym5tdbOCMjXs7HQgivsO8Np0EGPYnTIrRaqECYCqMpsy8r+OXoXb+Oo+n6XsH1BH76K+42fUcCYAqsrR1HPa338BJ6eDUO28gzJDoG52pCSsUs+ZAKgKc6nnXOYzgX9NB6FaGgJeAVyQDmQN/g0XB1IFTABUhaOAzdJBjPJXyiIwdV8JTjmLKWsE3JoOZJQtKMmJ1FMmAOq1GdRv0Z9llD0I7kkHotq7FjiS0iNQJ2+mfLaknjEBUK+9kPq9+38D9ezaVT39EPhIOohRtgOenw5C7WICoF6aQvmmUiffAE5KB6HGeRvw+3QQo7yF8hmTesIEQL30VOBB6SBGuIkyG0EarxWUdSzqtFzw3sBT0kGoPUwA1Et1W1DlGOC2dBBqrMso0wPr5Jh0AGoPEwD1yk6UTXXq4jTg2+kg1HgfA36bDmKEpwI7pINQO5gAqFeOoj730x3Am9JBqBVWUe7tFelAOqYBr0wHoXaoywNbzTYTeHk6iBHeAdycDkKtcTHwmXQQI7wSpwSqB0wA1Av/RFmspA4upKztLvXSO4Eb00F0bAkclg5CzWcCoF44Mh3ACMdR3+1d1Vx3AW9PBzFCnT5zaigTAE3WpsAT00F0nAX8Kh2EWutk4JJ0EB1PATZJB6FmMwHQZD2XeryPXE39pmypXVZRn3tsJuXVmzRhJgCarBekA+g4HZf7VfW+A5ybDqLjiHQAajYTAE3G1sCj0kFQNm75QDoIDYQh4P3pIDoeB2yTDkLNZQKgyXgO9biHzgT+kg5CA+P71GMswFScDaBJqMPDW831jHQAHf+ZDkADZQj4UDqIjqelA1BzmQBootYHHpMOgrJj26/TQWjg/F9gYToI4PHAnHQQaiYTAE3UE4FZ6SCAE9MBaCCtAL6YDgJYD3hsOgg1kwmAJurp6QCAO4FvpoPQwPo89Vh0qg6fRTWQCYAmqg77kv83sCQdhAbWAsriU2lPTQegZjIB0ETsDGybDoKSAEhJX04HQPk8bpcOQs1jAqCJqMPc/0uBP6eD0MA7i/IqKu2R6QDUPCYAmog6JACnpgOQgOXAd9NBUI/PpBrGBEATUYdvG19LByB1nJ4OgHpMyVXDmABovDYHdgvHcDFwZTgGadj/AveEY3ggZWdOqWsmABqvg4Ep4RjODB9fGule4KfhGKYAB4ZjUMOYAGi89ksHQD2mXkkj1eGerMNnUw1iAqDx2jd8/LuA34ZjkEb7YToA8p9NNYwJgMYr/S3jN8DKcAzSaAuBK8IxpD+bahgTAI3HXGCXcAxnh48vjSV9b+5G2RtA6ooJgMZjL/L3zDnh40tjSScA0yizAaSupB/mapb0t/8VwHnhGKSx/CYdAPnPqBrEBEDjkX64XAosC8cgjeVvwKJwDDuHj68GMQHQeOwUPv6F4eNLa7OaskhVkgmAumYCoPFI9wBcFD6+tC7pezT9GVWDmABoPNLfLi4JH19aF3sA1BgmAOrWVGDLcAxXhY8vrUv6Ht2G/FLdaggTAHVrE2B68Pirgb8Hjy91I50AzAA2DMeghjABULc2Cx//esre61KdXQUMhWNIf1bVECYA6lb6obIgfHypG8uAW8IxbB4+vhrCBEDdSj9Ubg4fX+pWOgFIJ+tqCBMAdWt++Pi3ho8vdSudAGwaPr4awgRA3Vo/fPz0Q1XqVjpZdUMgdcUEQN2aFT7+XeHjS926M3z8OeHjqyFMANSt2eHjOwNATZHeryL9WVVDmACoW+mHigmAmsIEQI1gAqBupR8qJgBqivS96isAdcUEQN2aFj7+6vDxpW6tCh8/uWKnGsQEQN26N3z8meHjS92yt0yNYAKgbqUTgPQsBKlb6XvVBEBdMQFQt9IPFXsA1BQmAGoEEwB1K90DMDd8fKlb6XvVBEBdMQFQt9JTm9JLEUvd2iR8/PRnVQ1hAqBupVc3Sz9UpW6l1+K/I3x8NYQJgLp1W/j49gCoKdL3avqzqoYwAVC30g+VLcPHl7q1Rfj4t4ePr4YwAVC30g+VHcLHl7oxn/wgwHSyroYwAVC30g+VjYF54RikdalDopr+rKohTADUrVuBleEYtg8fX1qXdAKwgnxvnRrCBEDdWgksDMewa/j40rqk79EFuG+GumQCoPG4Nnz8PcPHl9Zlr/Dx059RNYgJgMYj/XBJP1yldUknqX8PH18NYgKg8Ug/XEwAVGdTgQeGY0gn6WoQEwCNx9Xh4z8QmBOOQRrL7sD64RjSn1E1iAmAxuPS8PFnAAeEY5DG8rB0AMAl6QDUHCYAGo+L0wEAD0kHII0hfW8OAZeFY1CDmABoPO4AbgjHkH7ISmNJ35vXAXeFY1CDmABovNJdjI8FpoRjkEabD+wdjqEOPXRqEBMAjVf6IbM5+QetNNrjyD9P08m5GiZ9w6p5zk8HADwhHYA0yiHpAIDz0gGoWUwANF6/TwcAPDEdgDRKHe7Jc9MBqFlMADRel1MGAyY9HncGVH3sA+wcjuEW4KpwDGoYEwCN1xDwh3AMs4CnhGOQhj0rHQDwu3QAah4TAE1EHV4D1OGhKwE8Mx0Adv9rAkwANBFnpwMAno7LAitvF2D/dBDU4zOphjEB0EScAywPxzCPenzz0mD7Z/LrUizBVwCaABMATURdHjgvTgeggXdEOgDKt/93QFapAAAboklEQVR0Qq4GMgHQRP00HQDwJGDLdBAaWA+l7ACY9vN0AGomEwBN1M/SAQDTgZeng9DAelU6gI46JONqIBMATdR5wO3pIIBXA9PSQWjgbAK8IB0EcBNwYToINZMJgCZqJXBmOghge+AZ6SA0cF5OPWahfB9YnQ5CzWQCoMn4XjqAjtelA9BAmQYcnQ6i4/vpANRcJgCajB9RZgSkPQE4KB2EBsbzyC/9C7AI3/9rEkwANBlLqMdgQIDj0wFoYLw5HUDHj4Bl6SDUXCYAmqxvpQPoeDb1mJKldnsacEA6iI7vpANQs5kAaLK+TT1eA0wF3pEOQq1Xl3tsMb7/1ySZAGiy7qE+gwGPAPZLB6HWeg5l8Z86+CZlDIA0YSYA6oWvpAPomAq8Jx2EWmka9bq3Tk0HoOYzAVAv/AS4MR1Ex6HAo9JBqHVeCuyZDqJjIfC/6SDUfCYA6oWVwGnpIEb4BK4OqN7ZEHhfOogRvgKsSgeh5jMBUK98hvqsSLY/cFQ6CLXGu4At0kF0rAZOSgehdjABUK9cSXkVUBfvBeang1Dj7QUcmw5ihB8AV6eDUDuYAKiXTkwHMMJ84KPpINRoU4HPAjPSgYzw6XQAag8TAPXSmcA16SBGOBI4LB2EGus44JHpIEa4EvifdBBqDxMA9dJqyliAOvkUsEE6CDXOzsB/pIMY5QTqM85GLWACoF77LHBXOogRtgc+ng5CjTIN+DKwfjqQEW4DvpAOQu1iAqBeu5t6jQWAsnf7Eekg1Bhvp15d/1C+/bvyn3rKBEBV+DiwNB3EKCcCO6aDUO09GPi3dBCjLKEkAFJPmQCoCjcDJ6eDGGUjymJFM9OBqLbmA1+nXqP+AT4H3JoOQu1jAqCq/CewPB3EKA8HPpYOQrU0DTgd2CEdyChLgQ+ng1A7mQCoKn+nfHOpm2OAV6SDUO18ADgkHcQanABcnw5C7WQCoCq9j3oOXDqB+mzrqrwjgDeng1iDuyg9aVIlTABUpZsoG/PUzWzgDGDXdCCKeyTwJWBKOpA1+C/K9D+pEiYAqtqHgdvTQazBppQkwP0CBtduwHcpCWHd3Ew9k2e1iAmAqnYnZTe1Otqd0gDMSQeivtucsrFOXRPAt1PP12dqERMA9cOJwJ/SQYzhkcDXgOnpQNQ3G1Aa/13SgYzhj8AX00Go/UwA1A+rKFuqDqUDGcOh1G/1QlVjBvAN4MB0IGMYAt6Aa/6rD0wA1C/nUB68dXUU8O50EKrUFMp6+k9OB7IWXwHOTgehwWACoH56M/V+r/lO4DXpIFSZj1C2iK6ru4C3poPQ4DABUD8toP4PuE8Dz00HoZ57C/DGdBDr8C/AwnQQGhwmAOq3E6l3F+dUyp4BdVwVThPzQuCD6SDW4Re43a/6zARA/bYaeCX12y1wpJnAt4D90oFo0p4A/Df1XOhn2BLKGJS6DpJVS5kAKOFy4D3pINZhHnAWbiHcZAdT1nmo+w6QbweuSAehwWMCoJQPA79JB7EOWwM/oqwaqGbZjZLAzU0Hsg6/BD6ZDkKDyQRAKSuBFwB3pANZh90pi8bUvSHRfbYCfgxslg5kHe4EXkJZJ0PqOxMAJS0AXp0OogsHA9+h/l3Jatarm6Mp22ZLEf1MANIrW9V5ENAg+wZwajqILhxCfXeNUzET+CawfzqQLnwROD0dhNYo/cW4b21lPyua7uaaFj6+xnYs8Ld0EF14EfCBdBBao6mURPKJ6UC6cClwXDoIjSndVqzs14FMAFQHdwOHdX7W3fHAm9JB6B98FDg8HUQX7qEsNLU4HYjGlG4rWpkA9K1SY0hfVK3dZcBLacZc6A9T7yVlB83bacY36iHgZcAl6UC0Vum2om9flgepByD9Xkfr9h1K41p3TdhUZlC8mPqvKTHsfZQFplRv6QQg/WW5Eo+nZMCp8uPqq6gemAb8hOy90m25GzigmtOgLhwKrCB/H3RTfoBfQpoi/fx5XPVVLAapByCd1ak7q4DnAH9OB9KFDSgLBe2WDmQAPQT4KjA9HUgXLqbsR5CeCaXupNuKVo4BMAFQt4YHBd6YDqQLmwE/BLZMBzJA9qR8o14/HUgXFgJPoyz6o2ZItxWtHAOQfq9h91uzXAM8A1gUjqMbO1NeMW2UDmQAbENp/DdJB9KFRcDTgWvTgWhc0gmAPQAVmBU+vsbvfErXafre6cY+lEWNXC2wOhtTEq0d0oF0YSXwfODCdCAat/Rn2B6ACswJH18TcwZwTDqILh0CfBl7m6owB/g+sFc6kC4MUZa4/kE6EE1Iuq1It5WV2IPsyMrLq6+iKvTv5Edyd1s+XdE5GFTTKNPn0te12/K2ak6D+uRKsvfPrtVXsf+2I3tSF1RfRVXsk+Qf7t2W4ys6B4PoU+SvZ7flMxWdA/XPQrL30NbVV7H/NiF7Um+tvoqq2FTKe/b0Q76bshp4eTWnYaC8h/y17LZ8l/wAMk3eHWTvow2rr2L/zSJ7Ul17ux1mAj8l/7DvpqwEnlXNaRgIryZ/DbstvwBmV3IW1G/LyN5LM6qvYkZy1a7VuJVrW8wDLiD/0O+mLAEeXs1paLXDKAlU+vp1U/5MmaGg5ptK9l5aXn0Vc+4ie3LN0Ntja+Bq8g//bsqtwAOrOQ2t9GhgKfnr1k1ZQBnfpHZYn+z9dHv1VcxJD65owuIh6t4DKY1ruhHoplxDSwf39Nje5N/BdltupcxuUntsSvaeuq76KuZcQfbk7lR9FdVnD6asuJZuDLopf8Gu4rXZlrJqXvo6dVN8tdNODyB7X/21+irep98LlqQH4rlUa/ucS1lxrQmLZ+xFGSnuq6h/NJ+yC1sTutNXUVao/E06EPVcuo3oaxvZ7wQgva57+uKqGmcBr6Jk0HX3aOA0nC420nrAmTSjO30IOIqSyKl90lPw+poA9Hsrzbv6fLzRTAB6byqwL2V71t0o4yzWC8VyO+WbZN09GzgBODodSA1MB74OPDQdSJduB57aKf22pHP8vwK/B/6EWwz3WvoVXV/byH4nALf1+XijmQD0zgOAY4EjgC3CsTTRa4AbKAvdDKopwOcpO+Y1xXzg8HQQHTcCX6UsPX1lOJa2SLcRfW0j+/0KIJ0ApLO7NtgM+BJwGfAGbPwn492UVxeD6v3AS9NBNNiWwBspPQJfoIxg1+SYAFQonQCkL27TPQ24BHgZvsPulRMZzNUCXw/8azqIlpgGvIIyy+QR4ViaLv0lsdUJQHqRAxOAiTuWsjWv3zJ6axqlG/dR6UD66PnAx9JBtNAWwM9xD4rJSCcAfd2zZtB6AGy8JuZ1lEFr7nNfjdnA94A904H0wWOBU/BeqspM4IuUXjqNX3oQcV+/JA9aArBl+PhN9DTg4+kgBsDGwLcp+xy01faUEf8z04EMgM/gQkUTkW4jWv0KwASgWTYDvozf1vpld9q7n/xU4GuUe0rVm0VJKH3tOT7pNsIEoELpi9s0/4mvTfrthbRzPMCRNGeuf1tsAbw1HUTDpGc19bWN7Pf2uHOBe/p8zJGGKIvULAvG0BQPoEz1c7R///2WdnXfzqDs3LhNOpABtJTSs7QgHUgDzKEstpS0HuWa9UViKeDkcsBTyGd4TXEsNv4pDwP2SwfRQ4di458yh7Jeh9Yt3UN8J31s/CHzbje93WH6IjfBVMoKf8p5aTqAHnJEetYR9L+3t4nSbUPf20YTAK3JfthTkvb4dAA9Mg14TDqIAbcVsHc6iAbYKnx8E4A+2DZ8/CZ4cDoAsRf5RUl6YW9gg3QQcgBmF9Jtw/X9PmAiAeh7JUfZKXz8JtgtHYCYCuyYDqIHdkkHIMDPdDd2DB9/IBKAdA/AjuHjN8Em6QAEwObpAHrAV271kF7hrgl2Dh+/7zM1BjEBsAdg3WalAxDQjhXzZqQDEFCWm9ba7Rg+vj0AfbBj+PhNsDgdgIDsmhm9cnc6AAHZ6ddNsWP4+CYAfbAJsGE4hrpLj9NQcXM6gB5oQx3awM/02tWhXRiIWQC3kV9tacfw8evu0nQAYgnw13QQPfDHdAAC4JJ0ADWXfjW8iD7vBAiZBGAIuCJw3JHSgz3q7ux0AOIPwKp0ED2wkHyv36AbAn6VDqLm0m1CpE1M7fL2t9Bxh+0RPn7dXQ+cnw5iwH0rHUAPfTMdwIA7D7gxHUTNpduESJs4qAnAXuHjN8HJ6QAG2ArK1rltcWo6gAH35XQADZBuE0wA+mjP8PGb4L+BW9NBDKgvAjelg+ih84H/SQcxoG6ifJa1duk24fLw8fvqkZT3UqmyBHe668bRZK/TIJZF5Nckr8IBlDEN6fM7aOWobi7OgJtO2SI+eZ3atP33Om1B/oPxgMpr2XxTgZ+Sv1aDVF7Z1ZVppg+QP7+DVH5Mrpe3SfYgf602q7yWNXMX2RN+WPVVbIVNKK9s0h+QQSindXlNmmo6ZYZJ+jwPQrmcdmwm1Q/PJnut+j79b1gyO0yPA0gP+miK2ynJ0i3pQFruTOBl6SAqtpJyLznDpFq3UM7zHelAGiLdFsTawmQCkB70sH/4+E1yKWWL4D+lA2mpU4HnAvemA+mDO4AnAT9PB9JSFwEHA5elA2mQdFuQbgsjjifb7XJ19VVsnbnAKcBq8l2cbSj3AK8Z1xVoj2nAuyhJT/o6tKWcSvmManwWkL1ub66+ivXzFPIfmDZst5pwEOUbXPr6NbUsA07CrXIBdgW+gTMEJlN+Azx+vCdeQJlxk75+T6y8ljW0JfkT//TKa9luDwE+SeluTF/LupdFlKTpDbg3+5psB7wD+C2wnPz1qnu5FPg45dWcJu4w8tcyNgNgSurAHTeQ/Rb0bko3pCZvY2A3yqwBuyGLVZTFlG6hDPRZmQ2nMWZR7qX5neJUtmIRZTO1y4E7w7G0xXuBfwse/3pg2+Dxo35INvM6q/oqSpJq6n/ItkFnVF/FsaUz64vCxz+YfC+IJKn/pgAHhmOIzqwa9ARgM2D3cAySpP57EOWVZdKFyYOnE4Bo5TscPStJg+dx6QAY8ATgcspc6KQ63ASSpP56bPj4dwFXhmOI+wnZQRi3kk+EJEn9M5Xy7E+2PT+ovJbrUIeG79fh48+nvAuSJA2Gfcmvx5Fu+2qRAJyTDgBfA0jSIKnDMz+eANTBBpQFUgZ2LqYkqa9+QLbNuRdYr/JaNsT5ZC/GMkoiIklqt7nAUrJtzu8qr2UX6vAKAPJdIbOAQ8IxSJKq9xRgdjiGOrz6NgEY4bB0AJKkyj0zHQD1aPNqY1uy3TFDwM2UPcolSe00nbKhUrKtWQ1sUXVFm+YS8knAoyqvpSQp5XHk25k6rIAL1OcVAMCP0gEAz0oHIEmqTB2e8T9OB1BHTyKfmV2PrwEkqY2mAzeQb2fqsAZB7cwGFpO/OE+quqKSpL57Ovn2ZRFl1lkt1OkVwDLgF+kggBenA5Ak9Vwdnu0/A5ang6ir15PP0BbjokCS1CbzgCXk25djqq7oeNSpBwDqMRBwPeA56SAkST3zfGBOOggcALhOV5DP0n5RdSUlSX1zDvl25fLKazlOdesBAPhWOgDgMZTtIiVJzbY/8Ih0EMA30wE0wUHkM7Uh4AtVV1SSVLkvk29PhiiJiLrwN/IXaxku1yhJTbY5+Z3/hiivtmunjq8AoB6vAWYBr0wHIUmasGPI7/wHcHo6gCY5kHzGNkRZGXBmxXWVJPXeTOqx8t8QsE/FdW2dOswGGAJeVnVFJUk9dxT59mMIuKzqirbR+8lfuCHgGuwFkKQmmQFcRb79GALeXXFdW2kf8hduuBxVcV0lSb1zNPl2Y7jsWXFdW+tc8hdvCPg7NdrAQZI0plnAAvLtxhDw64rrOil1nQUw7PPpADq2B16RDkKStE6vBrZNB9FRlzaskeYCd5PP4oaA64D1q62uJGkS5gILybcXQ8CdlL1laqvuPQCLqM/8yW2At6WDkCSN6Z3AVukgOk6j7ECoSTiYfCY3XJYDu1dbXUnSBOxKWcE13U4MF5f+7ZE/kr+Yw8XtHCWpfn5Ivn0YLudVXNeBUqcpHUPAM6utriRpHJ5Lvl0YWZw63kPrA7eSv6jD5WrKYBNJUtY84Fry7cJwuQmYU2mNB9C7yF/YkeVzldZWktSNk8m3ByPL2yut7YCaT5kVkL64I8uhldZYkrQ2zyTfDowsiyhtlSpwAvkLPLLcDGxRaY0lSWuyGXAj+XZgZPlopTUecDsBK8hf5JHlu5XWWJK0Jt8i//wfWe4Fdqi0xuKr5C/06HJspTWWJI10HPnn/uhySqU1FlAWV1hN/mKPzvweVWWlJUkAPI769QSvAvaustK6z9fJX/DR5UZguyorLUkDbnvK2Kv08350Oa3KSuv+dqV8605f9NHlj9R88wdJaqjZlBX20s/50eVeYJcK6601+Az5C7+mciowpcJ6S9KgmUo9x38NAZ+qsN4aw1bUb12A4XJChfWWpEHzUfLP9TWVe3AqeMx7yd8AY5V3VFhvSRoU7yb/PB+rvKu6amtdNqCsu5y+CcYqb6yu6pLUeseSf46PVW6h7EOgoNeSvxHGKquAI6uruiS11kspz9D0c3ys8prKaq6uTQV+S/5mGKusxp4ASRqPY6l3438uMK2y2mtcDgRWkr8p1lY+WFntJak9jif/vF5bWUFZkE418gnyN8a6ygmUHgtJ0v1NAT5C/jm9rvLhqk6AJm4ecB35m2Nd5VTKghaSpGIO9Z3nP7JcC8yt6Bxokg4nf4N0Uy4AdqzmFEhSo2xLeaeefi53U55Z0TlQj3yf/E3STbkJeHRF50CSmuCx1HNt/zWVb1VzCtRLm1M25knfLN2UeynTGCVp0BxH/Xb1G6ssBDat5jSo155M/bYMXlv5AWVpY0lqu82B75B/7nZbVgNPq+RMqDKfIn/jjKfcBDyrkjMhSfXwVMq36fTzdjzlI5WcCVVqNnAR+ZtnvOUUyhLHktQW84CTyD9fx1v+grO2GmsfYBn5m2i85Rrgn3p/OiSp755LmT6Xfq6OtywB9qrgfKiP6ryZxLrKj4Dden9KJKlyewA/If8cnWh5de9PiRKa2PU0XO6lrHLoawFJTbAeZZvcJva+DpcTe31SlDMTOIf8TTWZcj1lyuCsHp8bSeqF2cDrad4gv9Hll8CMHp8bhW1BM99DjS7XUubPmghIqoMZwKuABeSfj5Mt11CmKaqFDgAWk7/JelGuBl5O6d2QpH6bBRxFaTTTz8NelEXAvr08QaqfF9CsRYLWVRYC78CsVVJ/bAH8O3AD+edfr8pqymwFDYDXk7/hel2WA18HHtLD8yRJw/anDKheQv551+vyf3p4ntQA7yN/01VVfkV5PTCvZ2dL0iDaEHglzR9Evbbynp6dLTXKR8nffFWWpcAZlG2SHdUqqRvTgEMoq5IuIv8cq7J8ukfnTA00FTiV/E3Yj7IQ+Bhl+81pPTh3ktpjOvA4ypojTdlNdbLlFEoboAE2Dfgm+Zuxn+U2yniBI/E1gTSo1gMOpbzXH5RGf7h8j5L0SMwGvk/+pkyUpcBZwBuB/TAjltpqKmUg35soW5AvJf/8STX+bvCj+5kG/Df5mzNd7qas3308cCAwZTInVVLUzpRFer4O3Er++ZIup+F4qP/Ph/v9TaEMDHxDOpAauRv4M3B+p5xNWYRIUr1sBRxESdwPpEwJ3iwaUb2cCLyOMudfmACM5X3A29JB1Nh1wHnAH4FLgIuBK4GVyaCkATEd2AV4ELAnpVv/YGDbZFA19x7K4kUawQRgbG8GPoTnqFv3ApcBlwJ/6fx+FWWZ0NtzYUmNtQmwU6c8kLI3/Z7A7rgEeLeGKGMePp4OpI5s3Nbu+cCXKKNlNXF3UV4bXNP5eTVl45CbKcuJ3kgZkCQNijnAlpRu+82B7SkN/Y7c1+g7Q2dyFgMvpczy0hqYAKzb/sB3KR9QVeduyloFw0nBbcCdwB2dnyN/H/65ArgnEazUsQFlUNlGwMadstGIMvzn+cDWlHfyW2PjXrW/A88ELkoHUmcmAN3ZgpJFPjIdiNZoOWV98iWd3xdRkoNlrLln4R4cr6D7m05pzEebQ5kyNgOY2/l9DqVX0C256+lXlI19bkkHUncmAN2bTllJ77XpQCRJa/Q5ykj/e9OBNIFLwnZvNfBDSlb5BFxFSpLqYiml4X8XsCobSnPYAzAxe1IWlNgvHYgkDbiLgRfh+/5xswdgYm4Bvkx5L/hwTKQkqd+GgM9T3vdfF46lkWy4Ju+JwMmUkb2SpOrdBLycsqeBJsiNXybvJ5Spgt9PByJJA+A7lFUQbfwnyQSgN26mzDk9DLg2HIsktdFC4CXAsykbG2mSHAPQW5dTpqFMBx6GCZYkTdZK4ARKw39eOJZWcQxAdfYFPgs8NB2IJDXUH4HXYMNfCb+hVuciysqBr8XuKkkaj1uAoym7HNr4V8RXANUaoty8n6Gsdf9gXD5UksaymLLi6vOAX1OeoaqICUB/3Eu5mb9AuaEPxpUEJWnYCuCLlPf836Xs6aGKOQYgYwfgbcAr8TWMpME1RNlo7W3AFeFYBo4JQNa+wFso3V32CEgaFCuA04H/Av4cjmVgmQDUw47AG4FXAOtnQ5GkyiymdPV/BNdMiTMBqJdNKUnAccBW4VgkqVduAU4EPgXcFo5FHSYA9bQecCRwFHBAOBZJmqg/UBZHO5WyZa9qxASg/vYCXkxJBjYJxyJJ63I35f3+SZSFfFRTJgDNMRs4FHgVcEg4Fkka7XzKt/3TKO/6VXMmAM30IOAFlNkDu4ZjkTS4/gp8A/gqcEk4Fo2TCUDz7QUcDhwB7BaORVL7/R34HqXhPycciybBBKBdDqT0CjwbeEA4Fknt8TfgW5RG3/f6LWEC0F47U8YKHAI8GZiXDUdSgywBfgP8FDgDu/dbyQRgMEynbEv8DEpCcABee0n3dxVwJqXBPxvX4289G4HBtCXwCMp2xY8A9seliKVBsgK4gLJJ2TmdnzdFI1LfmQAIysJDB3BfUvBwXHNAapNFwEXc19j/CrgrGpHiTAA0lq0pgwqHy56UcQWS6u0Oyjv780eUS4HVyaBUPyYAGo/NKTsY7g/sQ5l2uCuwUTIoaUDdQRmdfznwJ+DCTrklGZSawwRAvbAxpXdguOxF6THYDdggGJfUdMuB6ynf6C+mDNQbWaQJMwFQ1eZQdjbcmfJaYfTvW1MGJXovatAsAxZSGvIbOr/fMOrvbgCGUgGq3Xzoqg7mAPMpAw/nU7ZF3nTEn4fLhp3/uyFlb4T1KT0MzmBQwkrgHsq698sog+qWdn7eNqrcOurPt+PueAozAVAbTKckAusDs7j/mISplIRhpBnA3P6EpoZYRJkaN9Jd3H/g3J2ULvnFlB3vVvUnNEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSpDb6fxFv5RUPed6HAAAAAElFTkSuQmCC", ke = "data:image/png;base64,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", se = "data-mathfield-shadow-styles";
 function G(t) {
@@ -47,6 +47,95 @@ function G(t) {
       background-size: 100% 100%;
       background-repeat: no-repeat;
       pointer-events: none;
+    }
+    .cme-enclose-circle {
+      display: inline-block;
+      border: 1px solid currentColor;
+      border-radius: 2em; /* Capsule shape guarantees no corner clipping */
+      padding: 0.1em 0.6em; /* Extra horizontal padding for the semi-circle ends */
+      text-align: center;
+    }
+    .cme-enclose-box {
+      display: inline-block;
+      border: 1px solid currentColor;
+      padding: 0.2em 0.3em;
+    }
+    .cme-enclose-roundedbox {
+      display: inline-block;
+      border: 1px solid currentColor;
+      border-radius: 0.5em;
+      padding: 0.2em 0.3em;
+    }
+    .cme-enclose-actuarial {
+      display: inline-block;
+      border-top: 1px solid currentColor;
+      border-right: 1px solid currentColor;
+      padding-top: 0.1em;
+      padding-right: 0.2em;
+      margin-right: 0.1em;
+    }
+    .cme-cancel-strike {
+      display: inline-block;
+      position: relative;
+    }
+    .cme-cancel-strike::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: currentColor;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='100' x2='100' y2='0' stroke='black' stroke-width='2' vector-effect='non-scaling-stroke' /%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='100' x2='100' y2='0' stroke='black' stroke-width='2' vector-effect='non-scaling-stroke' /%3E%3C/svg%3E");
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      pointer-events: none;
+    }
+    .cme-down-strike {
+      display: inline-block;
+      position: relative;
+    }
+    .cme-down-strike::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: currentColor;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='0' x2='100' y2='100' stroke='black' stroke-width='2' vector-effect='non-scaling-stroke' /%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='0' x2='100' y2='100' stroke='black' stroke-width='2' vector-effect='non-scaling-stroke' /%3E%3C/svg%3E");
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      pointer-events: none;
+    }
+    .cme-cross-strike {
+      display: inline-block;
+      position: relative;
+    }
+    .cme-cross-strike::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: currentColor;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='100' x2='100' y2='0' stroke='black' stroke-width='2' vector-effect='non-scaling-stroke' /%3E%3Cline x1='0' y1='0' x2='100' y2='100' stroke='black' stroke-width='2' vector-effect='non-scaling-stroke' /%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg preserveAspectRatio='none' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='100' x2='100' y2='0' stroke='black' stroke-width='2' vector-effect='non-scaling-stroke' /%3E%3Cline x1='0' y1='0' x2='100' y2='100' stroke='black' stroke-width='2' vector-effect='non-scaling-stroke' /%3E%3C/svg%3E");
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      pointer-events: none;
+    }
+    .cme-horizontal-strike {
+      display: inline-block;
+      position: relative;
+    }
+    .cme-horizontal-strike::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 0; right: 0;
+      border-top: 1px solid currentColor;
+      pointer-events: none;
+    }
+    .cme-long-div {
+      display: inline-block;
+      border-bottom: 1px solid currentColor;
+      border-left: 1px solid currentColor;
+      padding: 0.1em 0.2em;
+      margin-left: 0.1em;
     }
   `);
 }
@@ -247,7 +336,7 @@ function ze({ value: t = "" }) {
     }
   );
 }
-const ye = [
+const we = [
   { id: "All", name: "All" },
   { id: "Symbol", name: "Symbol", ranges: [[8704, 8959], [9728, 9983], [8592, 8703], [9984, 10175]] },
   { id: "Punctuation", name: "Punctuation", ranges: [[33, 47], [58, 64], [91, 96], [123, 126], [8208, 8231], [8240, 8286]] },
@@ -258,7 +347,7 @@ const ye = [
   { id: "Other", name: "Other", ranges: [[8352, 8399], [8448, 8527], [9632, 9727]] }
 ], Xe = () => {
   const t = [];
-  return ye.slice(1).forEach((l) => {
+  return we.slice(1).forEach((l) => {
     l.ranges.forEach((i) => {
       for (let a = i[0]; a <= i[1]; a++)
         a >= 127 && a <= 159 || t.push({
@@ -270,7 +359,7 @@ const ye = [
   }), t;
 }, Ke = Xe();
 function Ge({ isOpen: t, onClose: l, onInsert: i, position: a }) {
-  const [n, s] = I(""), [o, c] = I("All");
+  const [n, s] = B(""), [o, c] = B("All");
   R(() => {
     t && (s(""), c("All"));
   }, [t]);
@@ -315,7 +404,7 @@ function Ge({ isOpen: t, onClose: l, onInsert: i, position: a }) {
       onChange: (b) => c(b.target.value),
       className: "scm-category-select"
     },
-    ye.map((b) => /* @__PURE__ */ e.createElement("option", { key: b.id, value: b.id }, b.name))
+    we.map((b) => /* @__PURE__ */ e.createElement("option", { key: b.id, value: b.id }, b.name))
   )), /* @__PURE__ */ e.createElement("div", { className: "scm-body" }, /* @__PURE__ */ e.createElement("div", { className: "scm-grid-container" }, Object.entries(A).map(([b, x]) => /* @__PURE__ */ e.createElement("div", { key: b, className: "scm-category-group" }, /* @__PURE__ */ e.createElement("div", { className: "scm-char-grid" }, x.map((k) => /* @__PURE__ */ e.createElement(
     "button",
     {
@@ -1418,8 +1507,8 @@ const et = [
           { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 -6 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32", overflow: "visible" } }, /* @__PURE__ */ e.createElement("rect", { x: "40", y: "-2", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "18", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "46", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("line", { x1: "8", y1: "38", x2: "54", y2: "38", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" })), insert: "\\frac{\\begin{array}{r}#?\\\\ \\,#?\\end{array}}{\\;#?}", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Fraction Template" },
           { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 -6 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32", overflow: "visible" } }, /* @__PURE__ */ e.createElement("rect", { x: "40", y: "-2", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "18", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "46", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("line", { x1: "8", y1: "38", x2: "54", y2: "38", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("line", { x1: "10", y1: "26", x2: "26", y2: "26", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" })), insert: "\\frac{\\begin{array}{r}#?\\\\-\\,#?\\end{array}}{\\quad#?", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Fraction with Subtraction" },
           { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 -6 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32", overflow: "visible" } }, /* @__PURE__ */ e.createElement("rect", { x: "40", y: "-2", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "18", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "46", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("line", { x1: "8", y1: "38", x2: "54", y2: "38", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("line", { x1: "11", y1: "19", x2: "25", y2: "33", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("line", { x1: "25", y1: "19", x2: "11", y2: "33", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" })), insert: "\\frac{\\begin{array}{r}#?\\\\×\\,#?\\end{array}}{\\quad#?}", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Fraction with Multiplication" },
-          { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 0 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32" } }, /* @__PURE__ */ e.createElement("rect", { x: "4", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("path", { d: "M30 4V30H56", stroke: "#222", strokeWidth: "4", fill: "none", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "40", width: "10", height: "16", rx: "1" })), insert: "\\begin{array}{r@{}l} #?\\, & \\begin{array}{|@{}l} \\underline{\\;#?\\;\\,} \\end{array} \\\\ & \\; #? \\end{array}", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Long Division" },
-          { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 0 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32" } }, /* @__PURE__ */ e.createElement("rect", { x: "4", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "4", y: "44", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("path", { d: "M30 4V36H58", stroke: "#222", strokeWidth: "4", fill: "none", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("rect", { x: "44", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "44", y: "44", width: "10", height: "16", rx: "1" })), insert: "\\begin{array}{r@{}l} #?\\, & \\begin{array}{|@{}l} \\underline{\\;#?\\;\\,} \\end{array} \\\\ #?\\, & \\; #? \\end{array}", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Long Division with Four Terms" },
+          { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 0 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32" } }, /* @__PURE__ */ e.createElement("rect", { x: "4", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("path", { d: "M30 4V30H56", stroke: "#222", strokeWidth: "4", fill: "none", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "40", width: "10", height: "16", rx: "1" })), insert: "\\begin{array}{r@{}l} #?\\, & \\class{cme-long-div}{#?} \\\\ & \\; #? \\end{array}", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Long Division" },
+          { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 0 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32" } }, /* @__PURE__ */ e.createElement("rect", { x: "4", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "4", y: "44", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("path", { d: "M30 4V36H58", stroke: "#222", strokeWidth: "4", fill: "none", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("rect", { x: "44", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "44", y: "44", width: "10", height: "16", rx: "1" })), insert: "\\begin{array}{r@{}l} #?\\, & \\class{cme-long-div}{#?} \\\\ #?\\, & \\; #? \\end{array}", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Long Division with Four Terms" },
           //long dividosn
           { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 0 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32" } }, /* @__PURE__ */ e.createElement("rect", { x: "40", y: "0", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("line", { x1: "30", y1: "20", x2: "54", y2: "20", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("path", { d: "M26 18C34 25 34 47 26 54", stroke: "#222", strokeWidth: "4", fill: "none" }), /* @__PURE__ */ e.createElement("rect", { x: "6", y: "28", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "28", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "52", width: "10", height: "16", rx: "1" })), insert: "#?\\, ) \\!\\!\\!\\!\\! \\begin{array}\\overset{\\displaystyle #?}{\\overline{\\vphantom{1}\\;\\;#?\\;}} \\\\ \\;\\;#?\\; \\end{array}", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Root with Fraction and Subscript" }
           // { label: ' ', insert: '\\frac{\\begin{array}{r}#?\\\\ \\,#?\\end{array}}{\\;#?}', isWidget: true, directInsert: true, title: 'Begin array', cls: 'cme-matrix-subgroup' },
@@ -1636,13 +1725,13 @@ const et = [
           // Enclose actuarial
           {
             label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("path", { d: "M4 2 H20 V22", stroke: "#666", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }), /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" })),
-            insert: "\\enclose{actuarial}{\\begin{array}{@{}c@{}} \\hspace{3px}#? \\end{array}}",
+            insert: "\\class{cme-enclose-actuarial}{#?}",
             title: "Enclose actuarial"
           },
           // Enclose rounded box
           {
             label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("rect", { x: "4", y: "2", width: "16", height: "20", rx: "8", ry: "8", stroke: "#666", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" })),
-            insert: "\\enclose{roundedbox}{\\raisebox{-2.5px}{#?}}",
+            insert: "\\class{cme-enclose-roundedbox}{#?}",
             title: "Enclose rounded box"
           }
         ]
@@ -1654,7 +1743,7 @@ const et = [
       // Enclosed box
       {
         label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("rect", { x: "4", y: "2", width: "16", height: "20", stroke: "#666", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" })),
-        insert: "\\boxed{#?}",
+        insert: "\\class{cme-enclose-box}{#?}",
         forceLabel: !0,
         title: "Enclosed box"
       },
@@ -1663,7 +1752,7 @@ const et = [
       // Enclosed right
       { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "26", viewBox: "0 0 64 64", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32" } }, /* @__PURE__ */ e.createElement("line", { x1: "48", y1: "12", x2: "48", y2: "52", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("rect", { x: "22", y: "18", width: "14", height: "28", rx: "2" })), insert: "\\left. #? \\right|", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Enclosed right" },
       // Enclosed circle
-      { label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("ellipse", { cx: "12", cy: "12", rx: "9", ry: "11", stroke: "#666666", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" })), insert: "\\enclose{circle}{\\begin{array}{@{}c@{}} \\raisebox{-2.5px}{\\,\\,#?} \\end{array}}", forceLabel: !0, title: "Enclose circle" },
+      { label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("ellipse", { cx: "12", cy: "12", rx: "9", ry: "11", stroke: "#666666", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" })), insert: "\\class{cme-enclose-circle}{#?}", forceLabel: !0, title: "Enclose circle" },
       {
         type: "sep",
         cols: 2,
@@ -1695,21 +1784,21 @@ const et = [
       //cancel
       {
         label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("line", { x1: "9", y1: "21", x2: "15", y2: "3", stroke: "#666", strokeWidth: "2", strokeLinecap: "round" })),
-        insert: "\\enclose{updiagonalstrike}{#0}",
+        insert: "\\class{cme-cancel-strike}{#0}",
         forceLabel: !0,
         title: "Cancel strike"
       },
       // Horizontal strike
       {
         label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("line", { x1: "6", y1: "12", x2: "18", y2: "12", stroke: "#666", strokeWidth: "2", strokeLinecap: "round" })),
-        insert: "\\enclose{horizontalstrike}{\\begin{array}{c@{}} \\raisebox{-8px}{#?} \\end{array}}",
+        insert: "\\class{cme-horizontal-strike}{#?}",
         forceLabel: !0,
         title: "Horizontal strike"
       },
       // Down diagonal strike
       {
         label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("line", { x1: "9", y1: "3", x2: "15", y2: "21", stroke: "#666", strokeWidth: "2", strokeLinecap: "round" })),
-        insert: "\\enclose{downdiagonalstrike}{#0}",
+        insert: "\\class{cme-down-strike}{#0}",
         forceLabel: !0,
         title: "Down diagonal strike"
       },
@@ -3014,8 +3103,8 @@ const et = [
           { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 -6 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32", overflow: "visible" } }, /* @__PURE__ */ e.createElement("rect", { x: "40", y: "-2", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "18", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "46", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("line", { x1: "8", y1: "38", x2: "54", y2: "38", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" })), insert: "\\frac{\\begin{array}{r}#?\\\\ \\,#?\\end{array}}{\\;#?}", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Fraction Template" },
           { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 -6 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32", overflow: "visible" } }, /* @__PURE__ */ e.createElement("rect", { x: "40", y: "-2", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "18", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "46", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("line", { x1: "8", y1: "38", x2: "54", y2: "38", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("line", { x1: "10", y1: "26", x2: "26", y2: "26", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" })), insert: "\\frac{\\begin{array}{r}#?\\\\-\\,#?\\end{array}}{\\quad#?", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Fraction with Subtraction" },
           { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 -6 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32", overflow: "visible" } }, /* @__PURE__ */ e.createElement("rect", { x: "40", y: "-2", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "18", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "46", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("line", { x1: "8", y1: "38", x2: "54", y2: "38", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("line", { x1: "11", y1: "19", x2: "25", y2: "33", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("line", { x1: "25", y1: "19", x2: "11", y2: "33", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" })), insert: "\\frac{\\begin{array}{r}#?\\\\×\\,#?\\end{array}}{\\quad#?}", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Fraction with Multiplication" },
-          { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 0 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32" } }, /* @__PURE__ */ e.createElement("rect", { x: "4", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("path", { d: "M30 4V30H56", stroke: "#222", strokeWidth: "4", fill: "none", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "40", width: "10", height: "16", rx: "1" })), insert: "\\begin{array}{r@{}l} #?\\, & \\begin{array}{|@{}l} \\underline{\\;#?\\;\\,} \\end{array} \\\\ & \\; #? \\end{array}", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Long Division" },
-          { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 0 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32" } }, /* @__PURE__ */ e.createElement("rect", { x: "4", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "4", y: "44", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("path", { d: "M30 4V36H58", stroke: "#222", strokeWidth: "4", fill: "none", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("rect", { x: "44", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "44", y: "44", width: "10", height: "16", rx: "1" })), insert: "\\begin{array}{r@{}l} #?\\, & \\begin{array}{|@{}l} \\underline{\\;#?\\;\\,} \\end{array} \\\\ #?\\, & \\; #? \\end{array}", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Long Division with Four Terms" },
+          { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 0 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32" } }, /* @__PURE__ */ e.createElement("rect", { x: "4", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("path", { d: "M30 4V30H56", stroke: "#222", strokeWidth: "4", fill: "none", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "40", width: "10", height: "16", rx: "1" })), insert: "\\begin{array}{r@{}l} #?\\, & \\class{cme-long-div}{#?} \\\\ & \\; #? \\end{array}", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Long Division" },
+          { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 0 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32" } }, /* @__PURE__ */ e.createElement("rect", { x: "4", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "4", y: "44", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("path", { d: "M30 4V36H58", stroke: "#222", strokeWidth: "4", fill: "none", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("rect", { x: "44", y: "8", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "44", y: "44", width: "10", height: "16", rx: "1" })), insert: "\\begin{array}{r@{}l} #?\\, & \\class{cme-long-div}{#?} \\\\ #?\\, & \\; #? \\end{array}", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Long Division with Four Terms" },
           //long dividosn
           { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "30", viewBox: "0 0 64 72", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32" } }, /* @__PURE__ */ e.createElement("rect", { x: "40", y: "0", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("line", { x1: "30", y1: "20", x2: "54", y2: "20", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("path", { d: "M26 18C34 25 34 47 26 54", stroke: "#222", strokeWidth: "4", fill: "none" }), /* @__PURE__ */ e.createElement("rect", { x: "6", y: "28", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "28", width: "10", height: "16", rx: "1" }), /* @__PURE__ */ e.createElement("rect", { x: "40", y: "52", width: "10", height: "16", rx: "1" })), insert: "#?\\, ) \\!\\!\\!\\!\\! \\begin{array}\\overset{\\displaystyle #?}{\\overline{\\vphantom{1}\\;\\;#?\\;}} \\\\ \\;\\;#?\\; \\end{array}", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Root with Fraction and Subscript" }
           // { label: ' ', insert: '\\frac{\\begin{array}{r}#?\\\\ \\,#?\\end{array}}{\\;#?}', isWidget: true, directInsert: true, title: 'Begin array', cls: 'cme-matrix-subgroup' },
@@ -3232,13 +3321,13 @@ const et = [
           // Enclose actuarial
           {
             label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("path", { d: "M4 2 H20 V22", stroke: "#666", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }), /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" })),
-            insert: "\\enclose{actuarial}{\\begin{array}{@{}c@{}} \\hspace{3px}#? \\end{array}}",
+            insert: "\\class{cme-enclose-actuarial}{#?}",
             title: "Enclose actuarial"
           },
           // Enclose rounded box
           {
             label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("rect", { x: "4", y: "2", width: "16", height: "20", rx: "8", ry: "8", stroke: "#666", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" })),
-            insert: "\\enclose{roundedbox}{\\raisebox{-2.5px}{#?}}",
+            insert: "\\class{cme-enclose-roundedbox}{#?}",
             title: "Enclose rounded box"
           }
         ]
@@ -3250,7 +3339,7 @@ const et = [
       // Enclosed box
       {
         label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("rect", { x: "4", y: "2", width: "16", height: "20", stroke: "#666", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" })),
-        insert: "\\boxed{#?}",
+        insert: "\\class{cme-enclose-box}{#?}",
         forceLabel: !0,
         title: "Enclosed box"
       },
@@ -3259,7 +3348,7 @@ const et = [
       // Enclosed right
       { label: /* @__PURE__ */ e.createElement("svg", { width: "26", height: "26", viewBox: "0 0 64 64", fill: "none", stroke: "currentColor", strokeWidth: "3", style: { display: "inline-block", verticalAlign: "middle", color: "#2E7D32" } }, /* @__PURE__ */ e.createElement("line", { x1: "48", y1: "12", x2: "48", y2: "52", stroke: "#222", strokeWidth: "4", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("rect", { x: "22", y: "18", width: "14", height: "28", rx: "2" })), insert: "\\left. #? \\right|", cls: "template", directInsert: !0, action: "INSERT_CUSTOM", title: "Enclosed right" },
       // Enclosed circle
-      { label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("ellipse", { cx: "12", cy: "12", rx: "9", ry: "11", stroke: "#666666", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" })), insert: "\\enclose{circle}{\\begin{array}{@{}c@{}} \\raisebox{-2.5px}{\\,\\,#?} \\end{array}}", forceLabel: !0, title: "Enclose circle" },
+      { label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("ellipse", { cx: "12", cy: "12", rx: "9", ry: "11", stroke: "#666666", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" })), insert: "\\class{cme-enclose-circle}{#?}", forceLabel: !0, title: "Enclose circle" },
       {
         type: "sep",
         cols: 2,
@@ -3291,28 +3380,28 @@ const et = [
       //cancel
       {
         label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("line", { x1: "9", y1: "21", x2: "15", y2: "3", stroke: "#666", strokeWidth: "2", strokeLinecap: "round" })),
-        insert: "\\enclose{updiagonalstrike}{#0}",
+        insert: "\\class{cme-cancel-strike}{#0}",
         forceLabel: !0,
         title: "Cancel strike"
       },
       // Horizontal strike
       {
         label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("line", { x1: "6", y1: "12", x2: "18", y2: "12", stroke: "#666", strokeWidth: "2", strokeLinecap: "round" })),
-        insert: "\\enclose{horizontalstrike}{\\begin{array}{c@{}} \\raisebox{-8px}{#?} \\end{array}}",
+        insert: "\\class{cme-horizontal-strike}{#?}",
         forceLabel: !0,
         title: "Horizontal strike"
       },
       // Down diagonal strike
       {
         label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("line", { x1: "9", y1: "3", x2: "15", y2: "21", stroke: "#666", strokeWidth: "2", strokeLinecap: "round" })),
-        insert: "\\enclose{downdiagonalstrike}{#0}",
+        insert: "\\class{cme-down-strike}{#0}",
         forceLabel: !0,
         title: "Down diagonal strike"
       },
       // Up and down diagonal strike
       {
         label: /* @__PURE__ */ e.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none" }, /* @__PURE__ */ e.createElement("rect", { x: "9", y: "7", width: "6", height: "10", rx: "1", stroke: "#2E7D32", strokeWidth: "2", fill: "none" }), /* @__PURE__ */ e.createElement("line", { x1: "9", y1: "21", x2: "15", y2: "3", stroke: "#666", strokeWidth: "2", strokeLinecap: "round" }), /* @__PURE__ */ e.createElement("line", { x1: "9", y1: "3", x2: "15", y2: "21", stroke: "#666", strokeWidth: "2", strokeLinecap: "round" })),
-        insert: "\\xcancel{#?}",
+        insert: "\\class{cme-cross-strike}{#?}",
         forceLabel: !0,
         title: "Cross strike"
       }
@@ -3545,7 +3634,7 @@ class rt extends be {
               window.__cme_macros && (u.macros = { ...u.macros, ...window.__cme_macros });
               let x = re(
                 le(
-                  s.replace(/\\placeholder(?:\[[^\]]*\])?\{((?:[^{}]*|\{[^{}]*\})*)\}/g, (k, w) => w.trim() === "" ? "\\quad " : w)
+                  s.replace(/\\placeholder(?:\[[^\]]*\])?\{((?:[^{}]*|\{[^{}]*\})*)\}/g, (k, y) => y.trim() === "" ? "\\quad " : y)
                 )
               );
               x.includes("\\enclose") && /^\\ce\{[\s\S]*\}$/i.test(x.trim()) && (x = x.trim().replace(/^\\ce\{([\s\S]*)\}$/i, "$1")), u.setValue ? u.setValue(x, { silenceNotifications: !0 }) : u.value = x;
@@ -3614,33 +3703,33 @@ function at(t) {
   };
 }
 function ot({ matrixType: t, x: l, y: i, onSelect: a, onMouseEnter: n, onMouseLeave: s }) {
-  const [o, c] = I({ r: 2, c: 2 }), m = Math.max(10, parseInt(o.r, 10) || 0), A = Math.max(10, parseInt(o.c, 10) || 0), u = (k) => {
-    const w = k.target.value;
-    if (w === "") {
+  const [o, c] = B({ r: 2, c: 2 }), m = Math.max(10, parseInt(o.r, 10) || 0), A = Math.max(10, parseInt(o.c, 10) || 0), u = (k) => {
+    const y = k.target.value;
+    if (y === "") {
       c((T) => ({ ...T, r: "" }));
       return;
     }
-    const B = parseInt(w, 10);
-    isNaN(B) || c((T) => ({ ...T, r: Math.max(1, Math.min(10, B)) }));
+    const I = parseInt(y, 10);
+    isNaN(I) || c((T) => ({ ...T, r: Math.max(1, Math.min(10, I)) }));
   }, v = () => {
     (o.r === "" || isNaN(parseInt(o.r, 10))) && c((k) => ({ ...k, r: 1 }));
   }, b = (k) => {
-    const w = k.target.value;
-    if (w === "") {
+    const y = k.target.value;
+    if (y === "") {
       c((T) => ({ ...T, c: "" }));
       return;
     }
-    const B = parseInt(w, 10);
-    isNaN(B) || c((T) => ({ ...T, c: Math.max(1, Math.min(10, B)) }));
+    const I = parseInt(y, 10);
+    isNaN(I) || c((T) => ({ ...T, c: Math.max(1, Math.min(10, I)) }));
   }, x = () => {
     (o.c === "" || isNaN(parseInt(o.c, 10))) && c((k) => ({ ...k, c: 1 }));
   };
   return R(() => {
-    const k = (w) => {
-      if (w.key === "Enter") {
-        w.preventDefault(), w.stopPropagation();
-        const B = parseInt(o.r, 10) || 1, T = parseInt(o.c, 10) || 1;
-        a(B, T);
+    const k = (y) => {
+      if (y.key === "Enter") {
+        y.preventDefault(), y.stopPropagation();
+        const I = parseInt(o.r, 10) || 1, T = parseInt(o.c, 10) || 1;
+        a(I, T);
       }
     };
     return window.addEventListener("keydown", k, !0), () => window.removeEventListener("keydown", k, !0);
@@ -3653,16 +3742,16 @@ function ot({ matrixType: t, x: l, y: i, onSelect: a, onMouseEnter: n, onMouseLe
       onMouseEnter: n,
       onMouseLeave: s
     },
-    /* @__PURE__ */ e.createElement("div", { className: "cme-matrix-hover-grid" }, Array.from({ length: m }).map((k, w) => /* @__PURE__ */ e.createElement("div", { key: w, className: "cme-matrix-hover-row" }, Array.from({ length: A }).map((B, T) => {
-      const U = parseInt(o.r, 10) || 0, C = parseInt(o.c, 10) || 0, S = w < U && T < C;
+    /* @__PURE__ */ e.createElement("div", { className: "cme-matrix-hover-grid" }, Array.from({ length: m }).map((k, y) => /* @__PURE__ */ e.createElement("div", { key: y, className: "cme-matrix-hover-row" }, Array.from({ length: A }).map((I, T) => {
+      const U = parseInt(o.r, 10) || 0, C = parseInt(o.c, 10) || 0, S = y < U && T < C;
       return /* @__PURE__ */ e.createElement(
         "div",
         {
-          key: `${w}-${T}`,
+          key: `${y}-${T}`,
           className: `cme-matrix-hover-cell${S ? " selected" : ""}`,
-          onMouseEnter: () => c({ r: w + 1, c: T + 1 }),
+          onMouseEnter: () => c({ r: y + 1, c: T + 1 }),
           onClick: (L) => {
-            L.preventDefault(), L.stopPropagation(), a(w + 1, T + 1);
+            L.preventDefault(), L.stopPropagation(), a(y + 1, T + 1);
           }
         }
       );
@@ -3679,11 +3768,11 @@ function ot({ matrixType: t, x: l, y: i, onSelect: a, onMouseEnter: n, onMouseLe
         max: "10"
       }
     ), /* @__PURE__ */ e.createElement("div", { className: "cme-counter-btns" }, /* @__PURE__ */ e.createElement("button", { type: "button", onClick: () => c((k) => {
-      const w = parseInt(k.r, 10) || 1;
-      return { ...k, r: Math.min(10, w + 1) };
+      const y = parseInt(k.r, 10) || 1;
+      return { ...k, r: Math.min(10, y + 1) };
     }) }, "▲"), /* @__PURE__ */ e.createElement("button", { type: "button", onClick: () => c((k) => {
-      const w = parseInt(k.r, 10) || 1;
-      return { ...k, r: Math.max(1, w - 1) };
+      const y = parseInt(k.r, 10) || 1;
+      return { ...k, r: Math.max(1, y - 1) };
     }) }, "▼"))), /* @__PURE__ */ e.createElement("div", { className: "cme-matrix-counter" }, /* @__PURE__ */ e.createElement("span", null, "C"), /* @__PURE__ */ e.createElement(
       "input",
       {
@@ -3696,23 +3785,23 @@ function ot({ matrixType: t, x: l, y: i, onSelect: a, onMouseEnter: n, onMouseLe
         max: "10"
       }
     ), /* @__PURE__ */ e.createElement("div", { className: "cme-counter-btns" }, /* @__PURE__ */ e.createElement("button", { type: "button", onClick: () => c((k) => {
-      const w = parseInt(k.c, 10) || 1;
-      return { ...k, c: Math.min(10, w + 1) };
+      const y = parseInt(k.c, 10) || 1;
+      return { ...k, c: Math.min(10, y + 1) };
     }) }, "▲"), /* @__PURE__ */ e.createElement("button", { type: "button", onClick: () => c((k) => {
-      const w = parseInt(k.c, 10) || 1;
-      return { ...k, c: Math.max(1, w - 1) };
+      const y = parseInt(k.c, 10) || 1;
+      return { ...k, c: Math.max(1, y - 1) };
     }) }, "▼"))))
   );
 }
 function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n }) {
-  const s = F(null), [o, c] = I(0), [m, A] = I(null), [u, v] = I(null), [b, x] = I(null), [k, w] = I(null);
+  const s = F(null), [o, c] = B(0), [m, A] = B(null), [u, v] = B(null), [b, x] = B(null), [k, y] = B(null);
   F(null);
-  const [B, T] = I({ x: 0, y: 0 }), [U, C] = I(!1), S = F({ x: 0, y: 0 });
+  const [I, T] = B({ x: 0, y: 0 }), [U, C] = B(!1), S = F({ x: 0, y: 0 });
   R(() => {
-    const r = (p) => {
+    const r = (d) => {
       U && T({
-        x: p.clientX - S.current.x,
-        y: p.clientY - S.current.y
+        x: d.clientX - S.current.x,
+        y: d.clientY - S.current.y
       });
     }, h = () => C(!1);
     return U && (window.addEventListener("mousemove", r), window.addEventListener("mouseup", h)), () => {
@@ -3721,10 +3810,10 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
   }, [U]);
   const L = (r) => {
     r.target.closest(".cme-popup-close") || (C(!0), S.current = {
-      x: r.clientX - B.x,
-      y: r.clientY - B.y
+      x: r.clientX - I.x,
+      y: r.clientY - I.y
     });
-  }, M = t === "math" ? et : tt, [d, D] = I({
+  }, M = t === "math" ? et : tt, [p, D] = B({
     bold: !1,
     italic: !1,
     color: "none",
@@ -3734,7 +3823,7 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
     const r = s.current;
     if (!(!r || typeof r.queryStyle != "function"))
       try {
-        const h = r.queryStyle({ fontSeries: "b" }) === "all" || r.queryStyle({ variantStyle: "bold" }) === "all", p = r.queryStyle({ variantStyle: "italic" }) === "all" || r.queryStyle({ shape: "it" }) === "all", y = ["roman", "sans-serif", "monospace"].find(
+        const h = r.queryStyle({ fontSeries: "b" }) === "all" || r.queryStyle({ variantStyle: "bold" }) === "all", d = r.queryStyle({ variantStyle: "italic" }) === "all" || r.queryStyle({ shape: "it" }) === "all", w = ["roman", "sans-serif", "monospace"].find(
           (g) => r.queryStyle({ fontFamily: g }) === "all"
         ) || "none", E = [5, 7, 9].find(
           (g) => r.queryStyle({ fontSize: g }) === "all"
@@ -3769,7 +3858,7 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
         D((g) => ({
           bold: g.bold,
           italic: g.italic,
-          fontFamily: y,
+          fontFamily: w,
           fontSize: String(E),
           color: f
         }));
@@ -3788,7 +3877,7 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
   }, [m, b]), R(() => {
     if (!k) return;
     const r = (h) => {
-      !h.target.closest(".cme-more-popup") && !h.target.closest(".cme-more-trigger-btn") && w(null);
+      !h.target.closest(".cme-more-popup") && !h.target.closest(".cme-more-trigger-btn") && y(null);
     };
     return window.addEventListener("mousedown", r, !0), window.addEventListener("pointerdown", r, !0), () => {
       window.removeEventListener("mousedown", r, !0), window.removeEventListener("pointerdown", r, !0);
@@ -3802,12 +3891,12 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
     r.macros = { ...r.macros, ...window.__cme_macros || {} }, r.defaultMode = "math";
     const h = () => {
       if (typeof r.applyStyle == "function" && r.applyStyle({ variantStyle: "up" }), a) {
-        let p = a;
+        let d = a;
         if (t === "chem") {
-          const y = p.match(/^\\ce\{([\s\S]*)\}$/i);
-          y && (p = y[1]);
+          const w = d.match(/^\\ce\{([\s\S]*)\}$/i);
+          w && (d = w[1]);
         }
-        p = le(p), p = re(p), r.setValue ? r.setValue("", { silenceNotifications: !0 }) : r.value = "", r.executeCommand(["insert", p, { insertionMode: "replaceAll" }]);
+        d = le(d), d = re(d), r.setValue ? r.setValue("", { silenceNotifications: !0 }) : r.value = "", r.executeCommand(["insert", d, { insertionMode: "replaceAll" }]);
       }
       requestAnimationFrame(() => r.focus());
     };
@@ -3815,35 +3904,33 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
   }, [t, a]), R(() => {
     const r = s.current;
     if (!r) return;
-    const h = (p) => {
-      if (p.key.length === 1 && !p.ctrlKey && !p.metaKey && !p.altKey && /[a-zA-Z0-9]/.test(p.key)) {
-        if (!d.bold && !d.italic)
-          return;
-        p.preventDefault(), p.stopPropagation();
-        let y = p.key;
-        d.bold && d.italic ? y = `\\mathbfit{${p.key}}` : d.bold ? y = `\\mathbf{${p.key}}` : d.italic && (y = `\\mathit{${p.key}}`), r.executeCommand(["insert", y]);
+    const h = (d) => {
+      if (d.key.length === 1 && !d.ctrlKey && !d.metaKey && !d.altKey && /[a-zA-Z0-9]/.test(d.key)) {
+        d.preventDefault(), d.stopPropagation();
+        let w = d.key;
+        p.bold && p.italic ? w = `\\mathbfit{${d.key}}` : p.bold ? w = `\\mathbf{${d.key}}` : p.italic ? w = `\\mathit{${d.key}}` : w = `\\mathrm{${d.key}}`, r.executeCommand(["insert", w]);
         return;
       }
-      p.key === " " ? (p.preventDefault(), r.executeCommand(["insert", "\\, "])) : p.key === "Enter" && (p.preventDefault(), p.stopImmediatePropagation(), r.executeCommand("addRowAfter"), setTimeout(() => {
+      d.key === " " ? (d.preventDefault(), r.executeCommand(["insert", "\\, "])) : d.key === "Enter" && (d.preventDefault(), d.stopImmediatePropagation(), r.executeCommand("addRowAfter"), setTimeout(() => {
         typeof r.applyStyle == "function" && (r.applyStyle({
-          fontSeries: d.bold ? "b" : "auto",
-          variantStyle: d.italic ? "italic" : "up"
-        }), d.color !== "none" && r.applyStyle({ color: d.color }), d.fontFamily !== "none" && r.applyStyle({ fontFamily: d.fontFamily }), d.fontSize !== "auto" && r.applyStyle({
-          fontSize: parseInt(d.fontSize, 10),
-          size: parseInt(d.fontSize, 10)
+          fontSeries: p.bold ? "b" : "auto",
+          variantStyle: p.italic ? "italic" : "up"
+        }), p.color !== "none" && r.applyStyle({ color: p.color }), p.fontFamily !== "none" && r.applyStyle({ fontFamily: p.fontFamily }), p.fontSize !== "auto" && r.applyStyle({
+          fontSize: parseInt(p.fontSize, 10),
+          size: parseInt(p.fontSize, 10)
         }), H());
       }, 10));
     };
     return r.addEventListener("keydown", h, !0), () => r.removeEventListener("keydown", h, !0);
-  }, [t, d, H]), R(() => {
+  }, [t, p, H]), R(() => {
     const r = s.current;
     if (!r) return;
     const h = () => {
       setTimeout(() => {
-        const p = r.shadowRoot;
-        if (!p) return;
-        const y = p.querySelector(".ML__caret") || p.querySelector('[class*="caret"]');
-        y && y.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" }), H();
+        const d = r.shadowRoot;
+        if (!d) return;
+        const w = d.querySelector(".ML__caret") || d.querySelector('[class*="caret"]');
+        w && w.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" }), H();
       }, 0);
     };
     return r.addEventListener("selection-change", h), r.addEventListener("input", h), r.addEventListener("keydown", h), setTimeout(H, 50), () => {
@@ -3853,14 +3940,14 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
   const Z = q((r) => {
     const h = s.current;
     h && (h.focus(), h.executeCommand(["insert", r]));
-  }, []), we = q((r, h, p) => {
-    let y = `\\begin{${r}} `;
+  }, []), ye = q((r, h, d) => {
+    let w = `\\begin{${r}} `;
     for (let E = 0; E < h; E++) {
-      for (let f = 0; f < p; f++)
-        y += "#?", f < p - 1 && (y += " & ");
-      E < h - 1 && (y += " \\\\ ");
+      for (let f = 0; f < d; f++)
+        w += "#?", f < d - 1 && (w += " & ");
+      E < h - 1 && (w += " \\\\ ");
     }
-    y += ` \\end{${r}}`, Z(y);
+    w += ` \\end{${r}}`, Z(w);
   }, [Z]), Ee = () => {
     const r = s.current;
     if (!r) return;
@@ -3875,7 +3962,7 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
     "div",
     {
       className: "cme-editor-popup",
-      style: { transform: `translate(${B.x}px, ${B.y}px)` },
+      style: { transform: `translate(${I.x}px, ${I.y}px)` },
       onMouseDown: (r) => r.stopPropagation()
     },
     /* @__PURE__ */ e.createElement(
@@ -3889,15 +3976,15 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
       /* @__PURE__ */ e.createElement("button", { type: "button", className: "cme-popup-close", onClick: i }, "×")
     ),
     /* @__PURE__ */ e.createElement("div", { className: "cme-toolbar", role: "toolbar", "aria-label": "Symbol palette" }, /* @__PURE__ */ e.createElement("div", { className: "cme-toolbar-groups" }, M.map((r, h) => {
-      const p = o === h;
+      const d = o === h;
       return /* @__PURE__ */ e.createElement(
         "button",
         {
           key: r.isMatrix ? "matrix-tab" : r.label,
-          className: `cme-group-tab${p ? " active" : ""}`,
+          className: `cme-group-tab${d ? " active" : ""}`,
           type: "button",
-          onMouseDown: (y) => {
-            y.preventDefault(), c(h), A(null);
+          onMouseDown: (w) => {
+            w.preventDefault(), c(h), A(null);
           }
         },
         r.mathLabel ? /* @__PURE__ */ e.createElement(
@@ -3917,29 +4004,29 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
               padding: "0",
               margin: "0",
               boxShadow: "none",
-              color: p ? "#333333" : "#ffffff"
+              color: d ? "#333333" : "#ffffff"
             }
           },
           r.mathLabel
         ) : r.label
       );
     })), /* @__PURE__ */ e.createElement("div", { className: "cme-toolbar-items" }, (() => {
-      var y;
-      const r = ((y = M[o]) == null ? void 0 : y.items) || [], h = r.some((E) => E.type === "sep"), p = [];
+      var w;
+      const r = ((w = M[o]) == null ? void 0 : w.items) || [], h = r.some((E) => E.type === "sep"), d = [];
       if (h) {
         let E = { cols: 2, small: !1, cls: "", items: [], moreItems: null };
         for (const f of r)
-          f.type === "sep" ? (E.items.length > 0 && p.push(E), E = { cols: f.cols || 2, small: !!f.small, cls: f.cls || "", items: [], moreItems: f.moreItems || null, moreCols: f.moreCols || 1 }) : E.items.push(f);
-        E.items.length > 0 && p.push(E);
+          f.type === "sep" ? (E.items.length > 0 && d.push(E), E = { cols: f.cols || 2, small: !!f.small, cls: f.cls || "", items: [], moreItems: f.moreItems || null, moreCols: f.moreCols || 1 }) : E.items.push(f);
+        E.items.length > 0 && d.push(E);
       } else
         for (let f = 0; f < r.length; f += 4)
-          p.push({
+          d.push({
             cols: 2,
             small: !1,
             cls: "",
             items: r.slice(f, f + 4)
           });
-      return p.map((E, f) => /* @__PURE__ */ e.createElement(
+      return d.map((E, f) => /* @__PURE__ */ e.createElement(
         "div",
         {
           key: f,
@@ -3954,10 +4041,10 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
             title: "more",
             onMouseDown: (g) => {
               if (g.preventDefault(), k && k.items === E.moreItems)
-                w(null);
+                y(null);
               else {
                 const V = g.currentTarget.getBoundingClientRect();
-                w({ cx: V.left + V.width / 2, y: V.bottom, items: E.moreItems, cols: E.moreCols, isTemplate: M[o].isTemplate || M[o].label === "√(□)" || M[o].isMatrix });
+                y({ cx: V.left + V.width / 2, y: V.bottom, items: E.moreItems, cols: E.moreCols, isTemplate: M[o].isTemplate || M[o].label === "√(□)" || M[o].isMatrix });
               }
             }
           },
@@ -3966,7 +4053,7 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
         E.items.map((g, V) => {
           const P = M[o];
           if (g.type === "dropdown") {
-            const O = g.label === "Font...", W = g.label === "Size", z = O && d.fontFamily !== "none", X = W && d.fontSize !== "auto" && d.fontSize !== "5", N = O ? d.fontFamily === "none" ? "" : d.fontFamily : W ? d.fontSize === "auto" || d.fontSize === "5" ? "" : d.fontSize : "";
+            const O = g.label === "Font...", W = g.label === "Size", z = O && p.fontFamily !== "none", X = W && p.fontSize !== "auto" && p.fontSize !== "5", N = O ? p.fontFamily === "none" ? "" : p.fontFamily : W ? p.fontSize === "auto" || p.fontSize === "5" ? "" : p.fontSize : "";
             return /* @__PURE__ */ e.createElement(
               "select",
               {
@@ -4045,7 +4132,7 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
                 )
               )
             );
-          const fe = g.action === "BOLD", ve = g.action === "ITALIC", Me = g.action === "TEXT_COLOR", Ae = fe && d.bold || ve && d.italic || Me && d.color !== "none" && d.color !== "black";
+          const fe = g.action === "BOLD", ve = g.action === "ITALIC", Me = g.action === "TEXT_COLOR", Ae = fe && p.bold || ve && p.italic || Me && p.color !== "none" && p.color !== "black";
           return /* @__PURE__ */ e.createElement(
             "button",
             {
@@ -4066,18 +4153,18 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
                 } else if (g.action === "BOLD") {
                   if (W && typeof W.applyStyle == "function") {
                     W.focus();
-                    const N = !d.bold;
+                    const N = !p.bold;
                     W.applyStyle({
                       fontSeries: N ? "b" : "auto",
-                      variantStyle: d.italic ? "italic" : "up"
+                      variantStyle: p.italic ? "italic" : "up"
                     }), D((J) => ({ ...J, bold: N }));
                   }
                 } else if (g.action === "ITALIC") {
                   if (W && typeof W.applyStyle == "function") {
                     W.focus();
-                    const N = !d.italic;
+                    const N = !p.italic;
                     W.applyStyle({
-                      fontSeries: d.bold ? "b" : "auto",
+                      fontSeries: p.bold ? "b" : "auto",
                       variantStyle: N ? "italic" : "up"
                     }), D((J) => ({ ...J, italic: N }));
                   }
@@ -4114,13 +4201,13 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
       {
         ref: (r) => {
           r && requestAnimationFrame(() => {
-            const h = r.getBoundingClientRect(), p = document.querySelector(".cme-editor-popup");
-            let y = k.cx - h.width / 2, E = k.y;
-            if (p) {
-              const f = p.getBoundingClientRect();
-              y + h.width > f.right - 4 && (y = f.right - h.width - 4), y < f.left + 4 && (y = f.left + 4), E + h.height > f.bottom - 4 && (E = f.bottom - h.height - 4);
+            const h = r.getBoundingClientRect(), d = document.querySelector(".cme-editor-popup");
+            let w = k.cx - h.width / 2, E = k.y;
+            if (d) {
+              const f = d.getBoundingClientRect();
+              w + h.width > f.right - 4 && (w = f.right - h.width - 4), w < f.left + 4 && (w = f.left + 4), E + h.height > f.bottom - 4 && (E = f.bottom - h.height - 4);
             }
-            y + h.width > window.innerWidth - 4 && (y = window.innerWidth - h.width - 4), E + h.height > window.innerHeight - 4 && (E = window.innerHeight - h.height - 4), y < 4 && (y = 4), r.style.left = `${y}px`, r.style.top = `${E}px`, r.style.transform = "none", r.style.visibility = "visible";
+            w + h.width > window.innerWidth - 4 && (w = window.innerWidth - h.width - 4), E + h.height > window.innerHeight - 4 && (E = window.innerHeight - h.height - 4), w < 4 && (w = 4), r.style.left = `${w}px`, r.style.top = `${E}px`, r.style.transform = "none", r.style.visibility = "visible";
           });
         },
         className: "cme-more-popup",
@@ -4141,8 +4228,8 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
           type: "button",
           className: `cme-more-popup-btn ${r.cls || ""}`,
           title: r.title || r.label || r.insert,
-          onMouseDown: (p) => {
-            p.preventDefault(), Z(r.insert), w(null);
+          onMouseDown: (d) => {
+            d.preventDefault(), Z(r.insert), y(null);
           }
         },
         r.insert && !r.action && (r.cls === "template" || r.isWidget) ? /* @__PURE__ */ e.createElement(
@@ -4174,8 +4261,8 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
         className: "cme-mathfield-container",
         onMouseDown: (r) => {
           s.current && (r.target === s.current || s.current.contains(r.target)) || (r.preventDefault(), requestAnimationFrame(() => {
-            var h, p;
-            (p = (h = s.current) == null ? void 0 : h.focus) == null || p.call(h);
+            var h, d;
+            (d = (h = s.current) == null ? void 0 : h.focus) == null || d.call(h);
           }));
         }
       },
@@ -4199,7 +4286,7 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
           x: m.x,
           y: m.y,
           onSelect: (r, h) => {
-            we(m.type, r, h), A(null);
+            ye(m.type, r, h), A(null);
           },
           onMouseEnter: () => {
           },
@@ -4269,7 +4356,7 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
           "violet",
           "gold"
         ].map((r) => {
-          const h = d.color === r || r === "black" && (d.color === "none" || !d.color);
+          const h = p.color === r || r === "black" && (p.color === "none" || !p.color);
           return /* @__PURE__ */ e.createElement(
             "div",
             {
@@ -4283,10 +4370,10 @@ function st({ mode: t, onInsert: l, onClose: i, initialLatex: a, isEditing: n })
                 border: h ? "2px solid #e6c229" : "1px solid #000",
                 boxSizing: "border-box"
               },
-              onMouseDown: (p) => {
-                p.preventDefault(), p.stopPropagation();
-                const y = s.current;
-                y && typeof y.applyStyle == "function" && (y.focus(), y.applyStyle({ color: r === "black" ? "none" : r }), H()), x(null);
+              onMouseDown: (d) => {
+                d.preventDefault(), d.stopPropagation();
+                const w = s.current;
+                w && typeof w.applyStyle == "function" && (w.focus(), w.applyStyle({ color: r === "black" ? "none" : r }), H()), x(null);
               }
             }
           );
@@ -4441,7 +4528,7 @@ function ct(t) {
 `), l.trim();
 }
 function xt({ value: t, onChange: l }) {
-  const i = F(null), a = F(!1), [n, s] = I(null), [o, c] = I(null);
+  const i = F(null), a = F(!1), [n, s] = B(null), [o, c] = B(null);
   R(() => {
     a.current = !!n;
   }, [n]), R(() => () => {
@@ -4451,49 +4538,49 @@ function xt({ value: t, onChange: l }) {
     c(null), a.current = !0, s(C);
   }, []), A = q(() => {
     a.current = !1, s(null), c(null);
-  }, []), [u, v] = I(!1), [b, x] = I(!1), [k, w] = I(!1), B = q((C) => {
+  }, []), [u, v] = B(!1), [b, x] = B(!1), [k, y] = B(!1), I = q((C) => {
     const S = i.current;
     if (!(!S || !(C != null && C.trim()))) {
       if (o) {
         const L = ie(S, o.modelElement) ? o.modelElement : null;
         L ? S.model.change((M) => {
-          const d = M.createElement("mathInline", { latex: C.trim() }), D = M.createPositionBefore(L);
-          M.insert(d, D), M.remove(L), M.setSelection(M.createPositionAfter(d));
+          const p = M.createElement("mathInline", { latex: C.trim() }), D = M.createPositionBefore(L);
+          M.insert(p, D), M.remove(L), M.setSelection(M.createPositionAfter(p));
         }) : S.model.change((M) => {
-          const d = M.createElement("mathInline", { latex: C.trim() });
-          S.model.insertContent(d);
+          const p = M.createElement("mathInline", { latex: C.trim() });
+          S.model.insertContent(p);
         }), c(null);
       } else if (u) {
         const L = ct(C.trim());
         if (!L) return;
         S.model.change((M) => {
-          const d = M.createText(L);
-          S.model.insertContent(d);
+          const p = M.createText(L);
+          S.model.insertContent(p);
         });
       } else
         S.model.change((L) => {
           const M = L.createElement("mathInline", { latex: C.trim() });
           S.model.insertContent(M);
-          const d = L.createPositionAfter(M);
-          L.insertText(" ", d), L.setSelection(d.getShiftedBy(1));
+          const p = L.createPositionAfter(M);
+          L.insertText(" ", p), L.setSelection(p.getShiftedBy(1));
         });
       S.editing.view.focus();
     }
   }, [u, o]), T = te(() => at(m), [m]), U = q((C) => {
     i.current = C;
-    const S = (d, D) => {
+    const S = (p, D) => {
       if (a.current || !D) return;
       const H = /^\\ce\{/.test(D);
-      a.current = !0, c({ modelElement: d, latex: D }), s(H ? "chem" : "math");
+      a.current = !0, c({ modelElement: p, latex: D }), s(H ? "chem" : "math");
     };
     C.mathWidgetClickHandler = S, window.__ckMathWidgetClickHandler = S;
     const L = C.ui.getEditableElement();
     if (!L || L._ckMathClickAttached) return;
     L._ckMathClickAttached = !0;
-    const M = (d) => {
+    const M = (p) => {
       var H;
-      const D = xe(d.target);
-      D && d.button === 0 && (d.preventDefault(), d.stopPropagation(), (H = d.stopImmediatePropagation) == null || H.call(d), ne(C, null, Q(D), D));
+      const D = xe(p.target);
+      D && p.button === 0 && (p.preventDefault(), p.stopPropagation(), (H = p.stopImmediatePropagation) == null || H.call(p), ne(C, null, Q(D), D));
     };
     L.addEventListener("mousedown", M, !0), L.addEventListener("click", M, !0);
   }, []);
@@ -4535,7 +4622,7 @@ function xt({ value: t, onChange: l }) {
     "button",
     {
       type: "button",
-      onClick: () => w(!0),
+      onClick: () => y(!0),
       style: {
         padding: "6px 12px",
         backgroundColor: "#0f766e",
@@ -4573,14 +4660,14 @@ function xt({ value: t, onChange: l }) {
   } }, /* @__PURE__ */ e.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #ccc", paddingBottom: "10px", marginBottom: "20px" } }, /* @__PURE__ */ e.createElement("h3", { style: { margin: 0 } }, "Question Preview"), /* @__PURE__ */ e.createElement(
     "button",
     {
-      onClick: () => w(!1),
+      onClick: () => y(!1),
       style: { background: "transparent", border: "none", fontSize: "20px", cursor: "pointer" }
     },
     "×"
   )), /* @__PURE__ */ e.createElement("div", { style: { fontSize: "16px", lineHeight: "1.6" } }, /* @__PURE__ */ e.createElement(ze, { value: t })), /* @__PURE__ */ e.createElement("div", { style: { marginTop: "30px", textAlign: "right" } }, /* @__PURE__ */ e.createElement(
     "button",
     {
-      onClick: () => w(!1),
+      onClick: () => y(!1),
       style: { padding: "8px 16px", backgroundColor: "#e2e8f0", border: "none", borderRadius: "4px", cursor: "pointer" }
     },
     "Close"
@@ -4597,8 +4684,8 @@ function xt({ value: t, onChange: l }) {
           Se,
           Te,
           We,
-          Ie,
           Be,
+          Ie,
           De,
           Ne,
           Re,
@@ -4649,7 +4736,7 @@ function xt({ value: t, onChange: l }) {
     st,
     {
       mode: n,
-      onInsert: B,
+      onInsert: I,
       onClose: A,
       initialLatex: (o == null ? void 0 : o.latex) || "",
       isEditing: !!o
