@@ -1,6 +1,6 @@
 {
   "name": "my-anees-package",
-  "version": "1.0.24",
+  "version": "1.0.26",
   "description": "Custom math and chemistry editor using MathLive and CKEditor 5",
   "type": "module",
   "main": "./dist/my-anees-package.umd.js",

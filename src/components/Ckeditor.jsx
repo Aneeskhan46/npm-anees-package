@@ -1692,7 +1692,7 @@ const MATH_GROUPS = [
             <line x1="9" y1="3" x2="15" y2="21" stroke="#666" strokeWidth="2" strokeLinecap="round" />
           </svg>
         ),
-        insert: '\\xcancel{#?}',
+        insert: '\\class{cme-cross-strike}{#?}',
         forceLabel: true,
         title: 'Cross strike'
       },
