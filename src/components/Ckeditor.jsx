@@ -1337,17 +1337,17 @@ const MATH_GROUPS = [
 
       { type: 'sep', cols: 2, cls: 'cme-matrix-subgroup' },
       // Element over
-      { label: (<svg width="26" height="26" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="3" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#2E7D32' }}><rect x="24" y="4" width="10" height="16" rx="1" opacity="0.45" /><rect x="23" y="28" width="12" height="20" rx="1" /></svg>), insert: '\\overset{#?}{#?}', cls: 'template', directInsert: true, action: 'INSERT_CUSTOM', title: 'Superscript Box' },
+      { label: (<svg width="26" height="26" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="3" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#2E7D32' }}><rect x="24" y="4" width="10" height="16" rx="1" opacity="0.45" /><rect x="23" y="28" width="12" height="20" rx="1" /></svg>), insert: '\\overset{\\raisebox{2px}{#?}}{#?}', cls: 'template', directInsert: true, action: 'INSERT_CUSTOM', title: 'Superscript Box' },
 
       // { label: '□̅', insert: '\\overset{#?}{#?}', title: 'Overscript' },
 
       // Element under
-      { label: (<svg width="26" height="26" viewBox="0 4 64 64" fill="none" stroke="currentColor" strokeWidth="3" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#2E7D32' }}><rect x="19" y="28" width="12" height="18" rx="1" /><rect x="21" y="52" width="8" height="12" rx="1" opacity="0.45" /></svg>), insert: '\\underset{#?}{#?}', cls: 'template', directInsert: true, action: 'INSERT_CUSTOM', title: 'Subscript Box' },
+      { label: (<svg width="26" height="26" viewBox="0 4 64 64" fill="none" stroke="currentColor" strokeWidth="3" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#2E7D32' }}><rect x="19" y="28" width="12" height="18" rx="1" /><rect x="21" y="52" width="8" height="12" rx="1" opacity="0.45" /></svg>), insert: '\\underset{\\raisebox{-5px}{#?}}{#?}', cls: 'template', directInsert: true, action: 'INSERT_CUSTOM', title: 'Subscript Box' },
       // { label: '□̲', insert: '\\underset{#?}{#?}', title: 'Underscript' },
 
 
       // Elements under and over
-      { label: (<svg width="26" height="26" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="3" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#2E7D32' }}><rect x="24" y="4" width="8" height="12" rx="1" opacity="0.45" /><rect x="22" y="22" width="12" height="20" rx="1" /><rect x="24" y="48" width="8" height="12" rx="1" opacity="0.45" /></svg>), insert: '\\overset{#?}{\\underset{#?}{#?}}', cls: 'template', directInsert: true, action: 'INSERT_CUSTOM', title: 'Box with Superscript and Subscript' },
+      { label: (<svg width="26" height="26" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="3" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#2E7D32' }}><rect x="24" y="4" width="8" height="12" rx="1" opacity="0.45" /><rect x="22" y="22" width="12" height="20" rx="1" /><rect x="24" y="48" width="8" height="12" rx="1" opacity="0.45" /></svg>), insert: '\\overset{\\raisebox{2px}{#?}}{\\underset{\\raisebox{-5px}{#?}}{#?}}', cls: 'template', directInsert: true, action: 'INSERT_CUSTOM', title: 'Box with Superscript and Subscript' },
       // { label: '□̲̅', insert: '\\overset{#?}{\\underset{#?}{#?}}', title: 'Over and underscript' },
 
 
@@ -3145,17 +3145,17 @@ const CHEM_GROUPS = [
 
       { type: 'sep', cols: 2, cls: 'cme-matrix-subgroup' },
       // Element over
-      { label: (<svg width="26" height="26" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="3" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#2E7D32' }}><rect x="24" y="4" width="10" height="16" rx="1" opacity="0.45" /><rect x="23" y="28" width="12" height="20" rx="1" /></svg>), insert: '\\overset{#?}{#?}', cls: 'template', directInsert: true, action: 'INSERT_CUSTOM', title: 'Superscript Box' },
+      { label: (<svg width="26" height="26" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="3" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#2E7D32' }}><rect x="24" y="4" width="10" height="16" rx="1" opacity="0.45" /><rect x="23" y="28" width="12" height="20" rx="1" /></svg>), insert: '\\overset{\\raisebox{2px}{#?}}{#?}', cls: 'template', directInsert: true, action: 'INSERT_CUSTOM', title: 'Superscript Box' },
 
       // { label: '□̅', insert: '\\overset{#?}{#?}', title: 'Overscript' },
 
       // Element under
-      { label: (<svg width="26" height="26" viewBox="0 4 64 64" fill="none" stroke="currentColor" strokeWidth="3" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#2E7D32' }}><rect x="19" y="28" width="12" height="18" rx="1" /><rect x="21" y="52" width="8" height="12" rx="1" opacity="0.45" /></svg>), insert: '\\underset{#?}{#?}', cls: 'template', directInsert: true, action: 'INSERT_CUSTOM', title: 'Subscript Box' },
+      { label: (<svg width="26" height="26" viewBox="0 4 64 64" fill="none" stroke="currentColor" strokeWidth="3" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#2E7D32' }}><rect x="19" y="28" width="12" height="18" rx="1" /><rect x="21" y="52" width="8" height="12" rx="1" opacity="0.45" /></svg>), insert: '\\underset{\\raisebox{-5px}{#?}}{#?}', cls: 'template', directInsert: true, action: 'INSERT_CUSTOM', title: 'Subscript Box' },
       // { label: '□̲', insert: '\\underset{#?}{#?}', title: 'Underscript' },
 
 
       // Elements under and over
-      { label: (<svg width="26" height="26" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="3" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#2E7D32' }}><rect x="24" y="4" width="8" height="12" rx="1" opacity="0.45" /><rect x="22" y="22" width="12" height="20" rx="1" /><rect x="24" y="48" width="8" height="12" rx="1" opacity="0.45" /></svg>), insert: '\\overset{#?}{\\underset{#?}{#?}}', cls: 'template', directInsert: true, action: 'INSERT_CUSTOM', title: 'Box with Superscript and Subscript' },
+      { label: (<svg width="26" height="26" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="3" style={{ display: 'inline-block', verticalAlign: 'middle', color: '#2E7D32' }}><rect x="24" y="4" width="8" height="12" rx="1" opacity="0.45" /><rect x="22" y="22" width="12" height="20" rx="1" /><rect x="24" y="48" width="8" height="12" rx="1" opacity="0.45" /></svg>), insert: '\\overset{\\raisebox{2px}{#?}}{\\underset{\\raisebox{-5px}{#?}}{#?}}', cls: 'template', directInsert: true, action: 'INSERT_CUSTOM', title: 'Box with Superscript and Subscript' },
       // { label: '□̲̅', insert: '\\overset{#?}{\\underset{#?}{#?}}', title: 'Over and underscript' },
 
 
@@ -4137,6 +4137,8 @@ function MathChemPopup({ mode, onInsert, onClose, initialLatex, isEditing }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const dragStartRef = useRef({ x: 0, y: 0 });
+  const [isMaximized, setIsMaximized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -4159,7 +4161,8 @@ function MathChemPopup({ mode, onInsert, onClose, initialLatex, isEditing }) {
   }, [isDragging]);
 
   const handleDragStart = (e) => {
-    if (e.target.closest('.cme-popup-close')) return;
+    if (e.target.closest('.cme-popup-controls')) return;
+    if (isMaximized) return;
     setIsDragging(true);
     dragStartRef.current = {
       x: e.clientX - position.x,
@@ -4477,6 +4480,18 @@ let globalTypingTimeout = null;
     insertAtCursor(latex);
   }, [insertAtCursor]);
 
+  const toggleMaximize = (e) => {
+    e.stopPropagation();
+    setIsMaximized(prev => !prev);
+    setIsMinimized(false);
+  };
+
+  const toggleMinimize = (e) => {
+    e.stopPropagation();
+    setIsMinimized(prev => !prev);
+    setIsMaximized(false);
+  };
+
   const handleInsert = () => {
     const mf = popupMfRef.current;
     if (!mf) return;
@@ -4491,17 +4506,21 @@ let globalTypingTimeout = null;
 
   return (
     <div
-      className="cme-editor-popup"
-      style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
+      className={`cme-editor-popup ${isMaximized ? 'maximized' : ''} ${isMinimized ? 'minimized' : ''}`}
+      style={(!isMaximized && !isMinimized) ? { transform: `translate(${position.x}px, ${position.y}px)` } : { transform: 'none' }}
       onMouseDown={(e) => e.stopPropagation()}
     >
       <div
         className="cme-popup-header"
         onMouseDown={handleDragStart}
-        style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+        style={{ cursor: isDragging ? 'grabbing' : (isMaximized ? 'default' : 'grab') }}
       >
         <span>{isEditing ? (mode === 'math' ? 'Edit Math Formula' : 'Edit Chemistry Formula') : (mode === 'math' ? 'Math Editor' : 'Chemistry Editor')}</span>
-        <button type="button" className="cme-popup-close" onClick={onClose}>×</button>
+        <div className="cme-popup-controls">
+          <button type="button" className="cme-popup-btn" onClick={toggleMinimize} title="Minimize">—</button>
+          <button type="button" className="cme-popup-btn" onClick={toggleMaximize} title="Maximize">⤢</button>
+          <button type="button" className="cme-popup-btn" onClick={onClose} title="Close">✕</button>
+        </div>
       </div>
 
       <div className="cme-toolbar" role="toolbar" aria-label="Symbol palette">
