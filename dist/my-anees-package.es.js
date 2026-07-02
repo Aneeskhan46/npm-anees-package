@@ -1,4 +1,4 @@
-import e, { useRef as _, useEffect as U, useState as I, useMemo as me, useCallback as z } from "react";
+import e, { useRef as _, useEffect as U, useState as D, useMemo as me, useCallback as z } from "react";
 import { createPortal as ie } from "react-dom";
 import { FontAwesomeIcon as ae } from "@fortawesome/react-fontawesome";
 import { faBold as fe, faItalic as ve } from "@fortawesome/free-solid-svg-icons";
@@ -297,8 +297,8 @@ function Ee(t, r) {
       if (m.nodeType === Node.TEXT_NODE)
         s.appendChild(document.createTextNode(m.textContent));
       else if (m.nodeType === Node.ELEMENT_NODE) {
-        const A = m.nodeName;
-        if (A === "MATH-FIELD") {
+        const C = m.nodeName;
+        if (C === "MATH-FIELD") {
           const k = m.getAttribute("value") || m.value || m.textContent || "", v = Le(k);
           if (!v || v.trim() === "")
             s.appendChild(document.createTextNode(" "));
@@ -322,15 +322,15 @@ function Ee(t, r) {
               b.setValue ? b.setValue(v) : b.value = v;
             }), s.appendChild(b);
           }
-        } else if (A === "BR")
+        } else if (C === "BR")
           s.appendChild(document.createElement("br"));
-        else if (A === "SPAN" && m.classList.contains("math-tex")) {
+        else if (C === "SPAN" && m.classList.contains("math-tex")) {
           const k = document.createElement("span");
           k.className = "math-tex", m.getAttribute("data-latex") && k.setAttribute("data-latex", m.getAttribute("data-latex")), k.textContent = m.textContent, s.appendChild(k);
-        } else if (a.has(A)) {
-          const k = { STRONG: "b", EM: "i" }, v = document.createElement(k[A] || A.toLowerCase());
-          A === "A" && m.getAttribute("href") && (v.setAttribute("href", m.getAttribute("href")), v.setAttribute("target", "_blank"), v.setAttribute("rel", "noopener noreferrer")), ["style", "class", "colspan", "rowspan"].forEach((x) => {
-            m.getAttribute(x) && v.setAttribute(x, m.getAttribute(x));
+        } else if (a.has(C)) {
+          const k = { STRONG: "b", EM: "i" }, v = document.createElement(k[C] || C.toLowerCase());
+          C === "A" && m.getAttribute("href") && (v.setAttribute("href", m.getAttribute("href")), v.setAttribute("target", "_blank"), v.setAttribute("rel", "noopener noreferrer")), ["style", "class", "colspan", "rowspan"].forEach((y) => {
+            m.getAttribute(y) && v.setAttribute(y, m.getAttribute(y));
           }), n(m, v), s.appendChild(v);
         } else
           n(m, s);
@@ -393,23 +393,23 @@ const Se = [
   }), t;
 }, it = rt();
 function nt({ isOpen: t, onClose: r, onInsert: i, position: a }) {
-  const [n, h] = I(""), [o, s] = I("All");
+  const [n, h] = D(""), [o, s] = D("All");
   U(() => {
     t && (h(""), s("All"));
   }, [t]);
   const m = me(() => {
     let b = it;
-    if (o !== "All" && (b = b.filter((x) => x.category === o)), n.trim()) {
-      const x = n.trim().toUpperCase();
-      b = b.filter((g) => g.code.includes(x));
+    if (o !== "All" && (b = b.filter((y) => y.category === o)), n.trim()) {
+      const y = n.trim().toUpperCase();
+      b = b.filter((g) => g.code.includes(y));
     }
     return b;
-  }, [o, n]), A = me(() => {
+  }, [o, n]), C = me(() => {
     if (o !== "All" && !n.trim())
       return { [o]: m };
     const b = {};
-    return m.forEach((x) => {
-      b[x.category] || (b[x.category] = []), b[x.category].push(x);
+    return m.forEach((y) => {
+      b[y.category] || (b[y.category] = []), b[y.category].push(y);
     }), b;
   }, [m, o, n]), k = (b) => {
     b.key === "Escape" && r();
@@ -417,8 +417,8 @@ function nt({ isOpen: t, onClose: r, onInsert: i, position: a }) {
   if (U(() => (t && window.addEventListener("keydown", k), () => window.removeEventListener("keydown", k)), [t]), !t) return null;
   let v = { top: "50%", left: "50%", transform: "translate(-50%, -50%)" };
   if (a) {
-    let b = a.x - 120, x = a.y;
-    b < 10 && (b = 10), b + 230 > window.innerWidth && (b = window.innerWidth - 240), x + 200 > window.innerHeight && (x = window.innerHeight - 210), v = { top: `${x}px`, left: `${b}px` };
+    let b = a.x - 120, y = a.y;
+    b < 10 && (b = 10), b + 230 > window.innerWidth && (b = window.innerWidth - 240), y + 200 > window.innerHeight && (y = window.innerHeight - 210), v = { top: `${y}px`, left: `${b}px` };
   }
   return /* @__PURE__ */ e.createElement("div", { className: "scm-overlay", onMouseDown: (b) => {
     b.stopPropagation(), r();
@@ -439,7 +439,7 @@ function nt({ isOpen: t, onClose: r, onInsert: i, position: a }) {
       className: "scm-category-select"
     },
     Se.map((b) => /* @__PURE__ */ e.createElement("option", { key: b.id, value: b.id }, b.name))
-  )), /* @__PURE__ */ e.createElement("div", { className: "scm-body" }, /* @__PURE__ */ e.createElement("div", { className: "scm-grid-container" }, Object.entries(A).map(([b, x]) => /* @__PURE__ */ e.createElement("div", { key: b, className: "scm-category-group" }, /* @__PURE__ */ e.createElement("div", { className: "scm-char-grid" }, x.map((g) => /* @__PURE__ */ e.createElement(
+  )), /* @__PURE__ */ e.createElement("div", { className: "scm-body" }, /* @__PURE__ */ e.createElement("div", { className: "scm-grid-container" }, Object.entries(C).map(([b, y]) => /* @__PURE__ */ e.createElement("div", { key: b, className: "scm-category-group" }, /* @__PURE__ */ e.createElement("div", { className: "scm-char-grid" }, y.map((g) => /* @__PURE__ */ e.createElement(
     "button",
     {
       key: g.code,
@@ -3657,7 +3657,7 @@ class dt extends Me {
             class: "ck-math-widget-inner",
             style: "display:inline-block;vertical-align:middle;margin:0 2px;cursor:pointer;width:auto;max-width:100%;pointer-events:none;"
           },
-          (A) => {
+          (C) => {
             const k = document.createElement("math-field");
             k.setAttribute("read-only", ""), k.setAttribute("math-virtual-keyboard-policy", "manual"), k.setAttribute("tabindex", "-1"), k.style.display = "inline-block", k.style.width = "auto", k.style.maxWidth = "100%", k.style.verticalAlign = "middle", k.style.border = "none", k.style.background = "transparent", k.style.outline = "none", k.style.fontSize = "inherit", k.style.minHeight = "auto", k.style.padding = "0 2px", k.style.margin = "0", k.style.pointerEvents = "none";
             const v = () => {
@@ -3666,17 +3666,17 @@ class dt extends Me {
                 return;
               }
               window.__cme_macros && (k.macros = { ...k.macros, ...window.__cme_macros });
-              let x = pe(
+              let y = pe(
                 de(
-                  h.replace(/\\placeholder(?:\[[^\]]*\])?\{((?:[^{}]*|\{[^{}]*\})*)\}/g, (g, y) => y.trim() === "" ? "\\quad " : y)
+                  h.replace(/\\placeholder(?:\[[^\]]*\])?\{((?:[^{}]*|\{[^{}]*\})*)\}/g, (g, E) => E.trim() === "" ? "\\quad " : E)
                 )
               );
-              x.includes("\\enclose") && /^\\ce\{[\s\S]*\}$/i.test(x.trim()) && (x = x.trim().replace(/^\\ce\{([\s\S]*)\}$/i, "$1")), k.setValue ? k.setValue(x, { silenceNotifications: !0 }) : k.value = x;
+              y.includes("\\enclose") && /^\\ce\{[\s\S]*\}$/i.test(y.trim()) && (y = y.trim().replace(/^\\ce\{([\s\S]*)\}$/i, "$1")), k.setValue ? k.setValue(y, { silenceNotifications: !0 }) : k.value = y;
             };
-            customElements.get("math-field") ? requestAnimationFrame(v) : customElements.whenDefined("math-field").then(() => requestAnimationFrame(v)), A.appendChild(k);
+            customElements.get("math-field") ? requestAnimationFrame(v) : customElements.whenDefined("math-field").then(() => requestAnimationFrame(v)), C.appendChild(k);
             const b = () => {
-              const x = A.parentElement;
-              x && st(r, x);
+              const y = C.parentElement;
+              y && st(r, y);
             };
             b(), requestAnimationFrame(b);
           }
@@ -3737,33 +3737,33 @@ function gt(t) {
   };
 }
 function kt({ matrixType: t, x: r, y: i, onSelect: a, onMouseEnter: n, onMouseLeave: h }) {
-  const [o, s] = I({ r: 2, c: 2 }), m = Math.max(10, parseInt(o.r, 10) || 0), A = Math.max(10, parseInt(o.c, 10) || 0), k = (g) => {
-    const y = g.target.value;
-    if (y === "") {
-      s((B) => ({ ...B, r: "" }));
+  const [o, s] = D({ r: 2, c: 2 }), m = Math.max(10, parseInt(o.r, 10) || 0), C = Math.max(10, parseInt(o.c, 10) || 0), k = (g) => {
+    const E = g.target.value;
+    if (E === "") {
+      s((I) => ({ ...I, r: "" }));
       return;
     }
-    const D = parseInt(y, 10);
-    isNaN(D) || s((B) => ({ ...B, r: Math.max(1, Math.min(10, D)) }));
+    const R = parseInt(E, 10);
+    isNaN(R) || s((I) => ({ ...I, r: Math.max(1, Math.min(10, R)) }));
   }, v = () => {
     (o.r === "" || isNaN(parseInt(o.r, 10))) && s((g) => ({ ...g, r: 1 }));
   }, b = (g) => {
-    const y = g.target.value;
-    if (y === "") {
-      s((B) => ({ ...B, c: "" }));
+    const E = g.target.value;
+    if (E === "") {
+      s((I) => ({ ...I, c: "" }));
       return;
     }
-    const D = parseInt(y, 10);
-    isNaN(D) || s((B) => ({ ...B, c: Math.max(1, Math.min(10, D)) }));
-  }, x = () => {
+    const R = parseInt(E, 10);
+    isNaN(R) || s((I) => ({ ...I, c: Math.max(1, Math.min(10, R)) }));
+  }, y = () => {
     (o.c === "" || isNaN(parseInt(o.c, 10))) && s((g) => ({ ...g, c: 1 }));
   };
   return U(() => {
-    const g = (y) => {
-      if (y.key === "Enter") {
-        y.preventDefault(), y.stopPropagation();
-        const D = parseInt(o.r, 10) || 1, B = parseInt(o.c, 10) || 1;
-        a(D, B);
+    const g = (E) => {
+      if (E.key === "Enter") {
+        E.preventDefault(), E.stopPropagation();
+        const R = parseInt(o.r, 10) || 1, I = parseInt(o.c, 10) || 1;
+        a(R, I);
       }
     };
     return window.addEventListener("keydown", g, !0), () => window.removeEventListener("keydown", g, !0);
@@ -3776,16 +3776,16 @@ function kt({ matrixType: t, x: r, y: i, onSelect: a, onMouseEnter: n, onMouseLe
       onMouseEnter: n,
       onMouseLeave: h
     },
-    /* @__PURE__ */ e.createElement("div", { className: "cme-matrix-hover-grid" }, Array.from({ length: m }).map((g, y) => /* @__PURE__ */ e.createElement("div", { key: y, className: "cme-matrix-hover-row" }, Array.from({ length: A }).map((D, B) => {
-      const F = parseInt(o.r, 10) || 0, C = parseInt(o.c, 10) || 0, S = y < F && B < C;
+    /* @__PURE__ */ e.createElement("div", { className: "cme-matrix-hover-grid" }, Array.from({ length: m }).map((g, E) => /* @__PURE__ */ e.createElement("div", { key: E, className: "cme-matrix-hover-row" }, Array.from({ length: C }).map((R, I) => {
+      const F = parseInt(o.r, 10) || 0, L = parseInt(o.c, 10) || 0, T = E < F && I < L;
       return /* @__PURE__ */ e.createElement(
         "div",
         {
-          key: `${y}-${B}`,
-          className: `cme-matrix-hover-cell${S ? " selected" : ""}`,
-          onMouseEnter: () => s({ r: y + 1, c: B + 1 }),
+          key: `${E}-${I}`,
+          className: `cme-matrix-hover-cell${T ? " selected" : ""}`,
+          onMouseEnter: () => s({ r: E + 1, c: I + 1 }),
           onClick: (M) => {
-            M.preventDefault(), M.stopPropagation(), a(y + 1, B + 1);
+            M.preventDefault(), M.stopPropagation(), a(E + 1, I + 1);
           }
         }
       );
@@ -3802,11 +3802,11 @@ function kt({ matrixType: t, x: r, y: i, onSelect: a, onMouseEnter: n, onMouseLe
         max: "10"
       }
     ), /* @__PURE__ */ e.createElement("div", { className: "cme-counter-btns" }, /* @__PURE__ */ e.createElement("button", { type: "button", onClick: () => s((g) => {
-      const y = parseInt(g.r, 10) || 1;
-      return { ...g, r: Math.min(10, y + 1) };
+      const E = parseInt(g.r, 10) || 1;
+      return { ...g, r: Math.min(10, E + 1) };
     }) }, "▲"), /* @__PURE__ */ e.createElement("button", { type: "button", onClick: () => s((g) => {
-      const y = parseInt(g.r, 10) || 1;
-      return { ...g, r: Math.max(1, y - 1) };
+      const E = parseInt(g.r, 10) || 1;
+      return { ...g, r: Math.max(1, E - 1) };
     }) }, "▼"))), /* @__PURE__ */ e.createElement("div", { className: "cme-matrix-counter" }, /* @__PURE__ */ e.createElement("span", null, "C"), /* @__PURE__ */ e.createElement(
       "input",
       {
@@ -3814,41 +3814,41 @@ function kt({ matrixType: t, x: r, y: i, onSelect: a, onMouseEnter: n, onMouseLe
         className: "cme-counter-val",
         value: o.c,
         onChange: b,
-        onBlur: x,
+        onBlur: y,
         min: "1",
         max: "10"
       }
     ), /* @__PURE__ */ e.createElement("div", { className: "cme-counter-btns" }, /* @__PURE__ */ e.createElement("button", { type: "button", onClick: () => s((g) => {
-      const y = parseInt(g.c, 10) || 1;
-      return { ...g, c: Math.min(10, y + 1) };
+      const E = parseInt(g.c, 10) || 1;
+      return { ...g, c: Math.min(10, E + 1) };
     }) }, "▲"), /* @__PURE__ */ e.createElement("button", { type: "button", onClick: () => s((g) => {
-      const y = parseInt(g.c, 10) || 1;
-      return { ...g, c: Math.max(1, y - 1) };
+      const E = parseInt(g.c, 10) || 1;
+      return { ...g, c: Math.max(1, E - 1) };
     }) }, "▼"))))
   );
 }
 let K = !1, he = null, j = null;
 function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n }) {
-  const h = _(null), [o, s] = I(0), [m, A] = I(null), [k, v] = I(null), [b, x] = I(null), [g, y] = I(null);
+  const h = _(null), [o, s] = D(0), [m, C] = D(null), [k, v] = D(null), [b, y] = D(null), [g, E] = D(null);
   _(null);
-  const [D, B] = I({ x: 0, y: 0 }), [F, C] = I(!1), S = _({ x: 0, y: 0 }), [M, T] = I(!1), [L, V] = I(!1);
+  const [R, I] = D({ x: 0, y: 0 }), [F, L] = D(!1), T = _({ x: 0, y: 0 }), [M, B] = D(!1), [S, V] = D(!1);
   U(() => {
     const l = (d) => {
-      F && B({
-        x: d.clientX - S.current.x,
-        y: d.clientY - S.current.y
+      F && I({
+        x: d.clientX - T.current.x,
+        y: d.clientY - T.current.y
       });
-    }, c = () => C(!1);
+    }, c = () => L(!1);
     return F && (window.addEventListener("mousemove", l), window.addEventListener("mouseup", c)), () => {
       window.removeEventListener("mousemove", l), window.removeEventListener("mouseup", c);
     };
   }, [F]);
   const Q = (l) => {
-    l.target.closest(".cme-popup-controls") || M || (C(!0), S.current = {
-      x: l.clientX - D.x,
-      y: l.clientY - D.y
+    l.target.closest(".cme-popup-controls") || M || (L(!0), T.current = {
+      x: l.clientX - R.x,
+      y: l.clientY - R.y
     });
-  }, X = t === "math" ? ct : ht, [E, oe] = I({
+  }, X = t === "math" ? ct : ht, [u, oe] = D({
     bold: !1,
     italic: !1,
     color: "none",
@@ -3859,9 +3859,9 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
     const l = h.current;
     if (!(!l || typeof l.queryStyle != "function"))
       try {
-        const c = window.__cmeManualBold !== void 0 ? window.__cmeManualBold : l.queryStyle({ fontSeries: "b" }) === "all" || l.queryStyle({ variantStyle: "bold" }) === "all", d = window.__cmeManualItalic !== void 0 ? window.__cmeManualItalic : l.queryStyle({ variantStyle: "italic" }) === "all" || l.queryStyle({ shape: "it" }) === "all", w = window.__cmeManualFontFamily !== void 0 ? window.__cmeManualFontFamily : ["roman", "sans-serif", "monospace"].find(
+        const c = window.__cmeManualBold !== void 0 ? window.__cmeManualBold : l.queryStyle({ fontSeries: "b" }) === "all" || l.queryStyle({ variantStyle: "bold" }) === "all", d = window.__cmeManualItalic !== void 0 ? window.__cmeManualItalic : l.queryStyle({ variantStyle: "italic" }) === "all" || l.queryStyle({ shape: "it" }) === "all", x = window.__cmeManualFontFamily !== void 0 ? window.__cmeManualFontFamily : ["roman", "sans-serif", "monospace"].find(
           (p) => l.queryStyle({ fontFamily: p }) === "all"
-        ) || "none", u = window.__cmeManualFontSize !== void 0 ? window.__cmeManualFontSize : [5, 7, 9].find(
+        ) || "none", w = window.__cmeManualFontSize !== void 0 ? window.__cmeManualFontSize : [5, 7, 9].find(
           (p) => l.queryStyle({ fontSize: p }) === "all"
         ) || "auto", f = [
           "black",
@@ -3894,8 +3894,8 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
         oe((p) => ({
           bold: c,
           italic: d,
-          fontFamily: w,
-          fontSize: String(u),
+          fontFamily: x,
+          fontSize: String(w),
           color: f
         }));
       } catch (c) {
@@ -3905,7 +3905,7 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
   U(() => {
     if (!m && !b) return;
     const l = (c) => {
-      !c.target.closest(".cme-matrix-hover-popover") && !c.target.closest(".cme-matrix-btn-wrapper") && A(null), !c.target.closest(".cme-color-picker-popup") && !c.target.closest('[title="Text Color"]') && x(null);
+      !c.target.closest(".cme-matrix-hover-popover") && !c.target.closest(".cme-matrix-btn-wrapper") && C(null), !c.target.closest(".cme-color-picker-popup") && !c.target.closest('[title="Text Color"]') && y(null);
     };
     return window.addEventListener("mousedown", l, !0), window.addEventListener("pointerdown", l, !0), () => {
       window.removeEventListener("mousedown", l, !0), window.removeEventListener("pointerdown", l, !0);
@@ -3913,7 +3913,7 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
   }, [m, b]), U(() => {
     if (!g) return;
     const l = (c) => {
-      !c.target.closest(".cme-more-popup") && !c.target.closest(".cme-more-trigger-btn") && y(null);
+      !c.target.closest(".cme-more-popup") && !c.target.closest(".cme-more-trigger-btn") && E(null);
     };
     return window.addEventListener("mousedown", l, !0), window.addEventListener("pointerdown", l, !0), () => {
       window.removeEventListener("mousedown", l, !0), window.removeEventListener("pointerdown", l, !0);
@@ -3930,8 +3930,8 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
       if (typeof l.applyStyle == "function" && l.applyStyle({ variantStyle: "up" }), a) {
         let d = a;
         if (t === "chem") {
-          const w = d.match(/^\\ce\{([\s\S]*)\}$/i);
-          w && (d = w[1]);
+          const x = d.match(/^\\ce\{([\s\S]*)\}$/i);
+          x && (d = x[1]);
         }
         d = de(d), d = pe(d), l.setValue ? l.setValue("", { silenceNotifications: !0 }) : l.value = "", l.executeCommand(["insert", d, { insertionMode: "replaceAll" }]);
       }
@@ -3946,40 +3946,40 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
         K = !1;
       }, 500)), d.key.length === 1 && !d.ctrlKey && !d.metaKey && !d.altKey && /[a-zA-Z0-9]/.test(d.key)) {
         d.preventDefault(), d.stopPropagation();
-        const w = E.fontFamily === "sans-serif", u = E.fontFamily === "monospace", f = E.bold, p = E.italic;
-        let H = "\\mathrm";
-        w ? H = "\\mathsf" : u ? H = "\\mathtt" : p && !f ? H = "\\mathit" : f && !p && (H = "\\mathbf");
-        let R = `${H}{${d.key}}`;
-        f && p ? (R = `\\boldsymbol{\\mathit{${d.key}}}`, w && (R = `\\boldsymbol{\\mathsf{${d.key}}}`), u && (R = `\\boldsymbol{\\mathtt{${d.key}}}`)) : f && (w || u) && (R = `\\boldsymbol{${R}}`);
-        let J = R;
-        const Y = E.fontSize === "auto" ? 5 : parseInt(E.fontSize, 10);
+        const x = u.fontFamily === "sans-serif", w = u.fontFamily === "monospace", f = u.bold, p = u.italic;
+        let O = "\\mathrm";
+        x ? O = "\\mathsf" : w ? O = "\\mathtt" : p && !f ? O = "\\mathit" : f && !p && (O = "\\mathbf");
+        let H = `${O}{${d.key}}`;
+        f && p ? (H = `\\mathbfit{${d.key}}`, x && (H = `\\boldsymbol{\\mathsf{${d.key}}}`), w && (H = `\\boldsymbol{\\mathtt{${d.key}}}`)) : f && (x || w) && (H = `\\boldsymbol{${H}}`);
+        let J = H;
+        const Y = u.fontSize === "auto" ? 5 : parseInt(u.fontSize, 10);
         if (Y !== 5) {
           const te = { 1: "\\tiny", 2: "\\scriptsize", 3: "\\footnotesize", 4: "\\small", 5: "\\normalsize", 6: "\\large", 7: "\\Large", 8: "\\LARGE", 9: "\\huge", 10: "\\Huge" };
           te[Y] && (J = `{${te[Y]} ${J}}`);
         }
-        E.color !== "none" && (J = `\\textcolor{${E.color}}{${J}}`), l.executeCommand(["insert", J]);
+        u.color !== "none" && (J = `\\textcolor{${u.color}}{${J}}`), l.executeCommand(["insert", J]);
         return;
       }
       d.key === " " ? (d.preventDefault(), l.executeCommand(["insert", "\\, "])) : d.key === "Enter" && (d.preventDefault(), d.stopImmediatePropagation(), l.executeCommand("addRowAfter"), setTimeout(() => {
         typeof l.applyStyle == "function" && (l.applyStyle({
-          fontSeries: E.bold ? "b" : "auto",
-          variantStyle: E.italic ? "italic" : "up"
-        }), E.color !== "none" && l.applyStyle({ color: E.color }), E.fontFamily !== "none" && l.applyStyle({ fontFamily: E.fontFamily }), E.fontSize !== "auto" && l.applyStyle({
-          fontSize: parseInt(E.fontSize, 10),
-          size: parseInt(E.fontSize, 10)
+          fontSeries: u.bold ? "b" : "auto",
+          variantStyle: u.italic ? "italic" : "up"
+        }), u.color !== "none" && l.applyStyle({ color: u.color }), u.fontFamily !== "none" && l.applyStyle({ fontFamily: u.fontFamily }), u.fontSize !== "auto" && l.applyStyle({
+          fontSize: parseInt(u.fontSize, 10),
+          size: parseInt(u.fontSize, 10)
         }), Z());
       }, 10));
     };
     return l.addEventListener("keydown", c, !0), () => l.removeEventListener("keydown", c, !0);
-  }, [t, E, Z]), U(() => {
+  }, [t, u, Z]), U(() => {
     const l = j;
     if (!l) return;
     const c = () => {
       setTimeout(() => {
         const d = l.shadowRoot;
         if (!d) return;
-        const w = d.querySelector(".ML__caret") || d.querySelector('[class*="caret"]');
-        w && w.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" }), Z();
+        const x = d.querySelector(".ML__caret") || d.querySelector('[class*="caret"]');
+        x && x.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" }), Z();
       }, 0);
     };
     return l.addEventListener("selection-change", c), l.addEventListener("input", c), l.addEventListener("keydown", c), setTimeout(Z, 50), () => {
@@ -3990,17 +3990,17 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
     const c = j;
     c && (c.focus(), c.executeCommand(["insert", l]));
   }, []), We = z((l, c, d) => {
-    let w = `\\begin{${l}} `;
-    for (let u = 0; u < c; u++) {
+    let x = `\\begin{${l}} `;
+    for (let w = 0; w < c; w++) {
       for (let f = 0; f < d; f++)
-        w += "#?", f < d - 1 && (w += " & ");
-      u < c - 1 && (w += " \\\\ ");
+        x += "#?", f < d - 1 && (x += " & ");
+      w < c - 1 && (x += " \\\\ ");
     }
-    w += ` \\end{${l}}`, G(w);
+    x += ` \\end{${l}}`, G(x);
   }, [G]), Be = (l) => {
-    l.stopPropagation(), T((c) => !c), V(!1);
+    l.stopPropagation(), B((c) => !c), V(!1);
   }, Ie = (l) => {
-    l.stopPropagation(), V((c) => !c), T(!1);
+    l.stopPropagation(), V((c) => !c), B(!1);
   }, De = () => {
     const l = j;
     if (!l) return;
@@ -4014,20 +4014,19 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
   return /* @__PURE__ */ e.createElement(
     "div",
     {
-      className: `cme-editor-popup ${M ? "maximized" : ""} ${L ? "minimized" : ""}`,
-      style: !M && !L ? { transform: `translate(${D.x}px, ${D.y}px)` } : { transform: "none" },
+      className: `cme-editor-popup ${M ? "maximized" : ""} ${S ? "minimized" : ""}`,
+      style: !M && !S ? { transform: `translate(${R.x}px, ${R.y}px)` } : { transform: "none" },
       onMouseDown: (l) => l.stopPropagation()
     },
-    /* @__PURE__ */ e.createElement(
+    /* @__PURE__ */ e.createElement("div", { className: "cme-popup-topbar" }, /* @__PURE__ */ e.createElement(
       "div",
       {
         className: "cme-popup-header",
         onMouseDown: Q,
         style: { cursor: F ? "grabbing" : M ? "default" : "grab" }
       },
-      /* @__PURE__ */ e.createElement("span", null, n ? t === "math" ? "Edit Math Formula" : "Edit Chemistry Formula" : t === "math" ? "Math Editor" : "Chemistry Editor"),
-      /* @__PURE__ */ e.createElement("div", { className: "cme-popup-controls" }, /* @__PURE__ */ e.createElement("button", { type: "button", className: "cme-popup-btn", onClick: Ie, title: "Minimize" }, "—"), /* @__PURE__ */ e.createElement("button", { type: "button", className: "cme-popup-btn", onClick: Be, title: "Maximize" }, "⤢"), /* @__PURE__ */ e.createElement("button", { type: "button", className: "cme-popup-btn", onClick: i, title: "Close" }, "✕"))
-    ),
+      /* @__PURE__ */ e.createElement("span", null, n ? t === "math" ? "Edit Math Formula" : "Edit Chemistry Formula" : t === "math" ? "Math Editor" : "Chemistry Editor")
+    ), /* @__PURE__ */ e.createElement("div", { className: "cme-popup-controls" }, /* @__PURE__ */ e.createElement("button", { type: "button", className: "cme-popup-btn", onClick: Ie, title: "Minimize" }, "—"), /* @__PURE__ */ e.createElement("button", { type: "button", className: "cme-popup-btn", onClick: Be, title: "Maximize" }, "⤢"), /* @__PURE__ */ e.createElement("button", { type: "button", className: "cme-popup-btn", onClick: i, title: "Close" }, "✕"))),
     /* @__PURE__ */ e.createElement("div", { className: "cme-toolbar", role: "toolbar", "aria-label": "Symbol palette" }, /* @__PURE__ */ e.createElement("div", { className: "cme-toolbar-groups" }, X.map((l, c) => {
       const d = o === c;
       return /* @__PURE__ */ e.createElement(
@@ -4036,8 +4035,8 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
           key: l.isMatrix ? "matrix-tab" : l.label,
           className: `cme-group-tab${d ? " active" : ""}`,
           type: "button",
-          onMouseDown: (w) => {
-            w.preventDefault(), s(c), A(null);
+          onMouseDown: (x) => {
+            x.preventDefault(), s(c), C(null);
           }
         },
         l.mathLabel ? /* @__PURE__ */ e.createElement(
@@ -4064,13 +4063,13 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
         ) : l.label
       );
     })), /* @__PURE__ */ e.createElement("div", { className: "cme-toolbar-items" }, (() => {
-      var w;
-      const l = ((w = X[o]) == null ? void 0 : w.items) || [], c = l.some((u) => u.type === "sep"), d = [];
+      var x;
+      const l = ((x = X[o]) == null ? void 0 : x.items) || [], c = l.some((w) => w.type === "sep"), d = [];
       if (c) {
-        let u = { cols: 2, small: !1, cls: "", items: [], moreItems: null };
+        let w = { cols: 2, small: !1, cls: "", items: [], moreItems: null };
         for (const f of l)
-          f.type === "sep" ? (u.items.length > 0 && d.push(u), u = { cols: f.cols || 2, small: !!f.small, cls: f.cls || "", items: [], moreItems: f.moreItems || null, moreCols: f.moreCols || 1 }) : u.items.push(f);
-        u.items.length > 0 && d.push(u);
+          f.type === "sep" ? (w.items.length > 0 && d.push(w), w = { cols: f.cols || 2, small: !!f.small, cls: f.cls || "", items: [], moreItems: f.moreItems || null, moreCols: f.moreCols || 1 }) : w.items.push(f);
+        w.items.length > 0 && d.push(w);
       } else
         for (let f = 0; f < l.length; f += 4)
           d.push({
@@ -4079,40 +4078,40 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
             cls: "",
             items: l.slice(f, f + 4)
           });
-      return d.map((u, f) => /* @__PURE__ */ e.createElement(
+      return d.map((w, f) => /* @__PURE__ */ e.createElement(
         "div",
         {
           key: f,
-          className: `cme-symbol-subgroup${u.small ? " cme-symbol-subgroup--small" : ""}${u.cls ? ` ${u.cls}` : ""}${u.moreItems ? " cme-subgroup-has-more" : ""}`,
-          style: { gridTemplateColumns: `repeat(${u.cols}, auto)`, position: "relative" }
+          className: `cme-symbol-subgroup${w.small ? " cme-symbol-subgroup--small" : ""}${w.cls ? ` ${w.cls}` : ""}${w.moreItems ? " cme-subgroup-has-more" : ""}`,
+          style: { gridTemplateColumns: `repeat(${w.cols}, auto)`, position: "relative" }
         },
-        u.moreItems && /* @__PURE__ */ e.createElement(
+        w.moreItems && /* @__PURE__ */ e.createElement(
           "button",
           {
             type: "button",
             className: "cme-more-trigger-btn",
             title: "more",
             onMouseDown: (p) => {
-              if (p.preventDefault(), g && g.items === u.moreItems)
-                y(null);
+              if (p.preventDefault(), g && g.items === w.moreItems)
+                E(null);
               else {
-                const H = p.currentTarget.getBoundingClientRect();
-                y({ cx: H.left + H.width / 2, y: H.bottom, items: u.moreItems, cols: u.moreCols, isTemplate: X[o].isTemplate || X[o].label === "√(□)" || X[o].isMatrix });
+                const O = p.currentTarget.getBoundingClientRect();
+                E({ cx: O.left + O.width / 2, y: O.bottom, items: w.moreItems, cols: w.moreCols, isTemplate: X[o].isTemplate || X[o].label === "√(□)" || X[o].isMatrix });
               }
             }
           },
           "▶"
         ),
-        u.items.map((p, H) => {
-          const R = X[o];
+        w.items.map((p, O) => {
+          const H = X[o];
           if (p.type === "dropdown") {
-            const P = p.label === "Font...", W = p.label === "Size", le = P && E.fontFamily !== "none", re = W && E.fontSize !== "auto" && E.fontSize !== "5", O = P ? E.fontFamily === "none" ? "" : E.fontFamily : W ? E.fontSize === "auto" || E.fontSize === "5" ? "" : E.fontSize : "";
+            const P = p.label === "Font...", A = p.label === "Size", le = P && u.fontFamily !== "none", re = A && u.fontSize !== "auto" && u.fontSize !== "5", N = P ? u.fontFamily === "none" ? "" : u.fontFamily : A ? u.fontSize === "auto" || u.fontSize === "5" ? "" : u.fontSize : "";
             return /* @__PURE__ */ e.createElement(
               "select",
               {
-                key: H,
+                key: O,
                 className: `cme-btn template${le || re ? " active" : ""}`,
-                value: O,
+                value: N,
                 style: {
                   width: p.width || "60px",
                   height: "18px",
@@ -4124,41 +4123,41 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
                   fontSize: "10px",
                   padding: "0",
                   margin: "2px 0",
-                  gridColumn: u.cols === 3 || u.cols === 1 ? "span 1" : "span 2"
+                  gridColumn: w.cols === 3 || w.cols === 1 ? "span 1" : "span 2"
                 },
                 onChange: (q) => {
-                  const N = q.target.value, $ = j;
-                  !$ || typeof $.applyStyle != "function" || ($.focus(), P ? $.applyStyle({ fontFamily: N || "none" }) : W && $.applyStyle({ fontSize: N ? parseInt(N, 10) : "auto" }), Z());
+                  const W = q.target.value, $ = j;
+                  !$ || typeof $.applyStyle != "function" || ($.focus(), P ? $.applyStyle({ fontFamily: W || "none" }) : A && $.applyStyle({ fontSize: W ? parseInt(W, 10) : "auto" }), Z());
                 }
               },
               /* @__PURE__ */ e.createElement("option", { value: "" }, p.label),
               P && /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("option", { value: "roman" }, "Times"), /* @__PURE__ */ e.createElement("option", { value: "sans-serif" }, "Helvetica"), /* @__PURE__ */ e.createElement("option", { value: "monospace" }, "Courier")),
-              W && /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("option", { value: "5" }, "12px"), /* @__PURE__ */ e.createElement("option", { value: "7" }, "16px"), /* @__PURE__ */ e.createElement("option", { value: "9" }, "20px"))
+              A && /* @__PURE__ */ e.createElement(e.Fragment, null, /* @__PURE__ */ e.createElement("option", { value: "5" }, "12px"), /* @__PURE__ */ e.createElement("option", { value: "7" }, "16px"), /* @__PURE__ */ e.createElement("option", { value: "9" }, "20px"))
             );
           }
-          if (R.isMatrix && !p.directInsert)
+          if (H.isMatrix && !p.directInsert)
             return /* @__PURE__ */ e.createElement(
               "div",
               {
-                key: H,
+                key: O,
                 className: "cme-matrix-btn-wrapper"
               },
               /* @__PURE__ */ e.createElement(
                 "button",
                 {
                   type: "button",
-                  className: `cme-btn template${p.cls ? ` ${p.cls}` : ""}${R.isMatrix ? " cme-matrix-btn-small" : ""}`,
+                  className: `cme-btn template${p.cls ? ` ${p.cls}` : ""}${H.isMatrix ? " cme-matrix-btn-small" : ""}`,
                   title: p.title || p.label || p.insert,
                   onMouseDown: (P) => {
                     if (P.preventDefault(), P.stopPropagation(), (m == null ? void 0 : m.type) === p.insert)
-                      A(null);
+                      C(null);
                     else {
                       K || (window.__cmeManualBold = void 0, window.__cmeManualItalic = void 0, window.__cmeManualFontFamily = void 0, window.__cmeManualFontSize = void 0);
-                      const W = P.currentTarget.getBoundingClientRect();
-                      A({
+                      const A = P.currentTarget.getBoundingClientRect();
+                      C({
                         type: p.insert,
-                        x: W.left + W.width / 2,
-                        y: W.bottom
+                        x: A.left + A.width / 2,
+                        y: A.bottom
                       });
                     }
                   }
@@ -4186,52 +4185,52 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
                 )
               )
             );
-          const J = p.action === "BOLD", Y = p.action === "ITALIC", te = p.action === "TEXT_COLOR", Ne = J && E.bold || Y && E.italic || te && E.color !== "none" && E.color !== "black";
+          const J = p.action === "BOLD", Y = p.action === "ITALIC", te = p.action === "TEXT_COLOR", Ne = J && u.bold || Y && u.italic || te && u.color !== "none" && u.color !== "black";
           return /* @__PURE__ */ e.createElement(
             "button",
             {
-              key: `${R.label}-${f * 4 + H}`,
+              key: `${H.label}-${f * 4 + O}`,
               type: "button",
-              className: `cme-btn${R.isTemplate ? " template" : ""}${p.cls ? ` ${p.cls}` : ""}${Ne ? " active" : ""}`,
+              className: `cme-btn${H.isTemplate ? " template" : ""}${p.cls ? ` ${p.cls}` : ""}${Ne ? " active" : ""}`,
               title: p.title || p.label || p.insert,
               onMouseDown: (P) => {
                 var le, re;
                 P.preventDefault();
-                const W = h.current;
+                const A = h.current;
                 if (p.action === "SPECIAL_CHARS") {
-                  const O = P.currentTarget.getBoundingClientRect();
-                  v({ x: O.left, y: O.bottom + 4 });
+                  const N = P.currentTarget.getBoundingClientRect();
+                  v({ x: N.left, y: N.bottom + 4 });
                 } else if (p.action === "TEXT_COLOR") {
-                  const O = P.currentTarget.getBoundingClientRect();
-                  x({ x: O.left, y: O.bottom + 4 });
+                  const N = P.currentTarget.getBoundingClientRect();
+                  y({ x: N.left, y: N.bottom + 4 });
                 } else if (p.action === "BOLD") {
-                  if (W) {
-                    W.focus();
-                    const O = !E.bold;
-                    window.__cmeManualBold = O;
-                    const q = W.selection;
+                  if (A) {
+                    A.focus();
+                    const N = !u.bold;
+                    window.__cmeManualBold = N;
+                    const q = A.selection;
                     if (q && !q.isCollapsed) {
-                      let N = W.getValue(q);
-                      N = N.replace(/\\mathrm{([^}]*)}/g, "$1"), W.executeCommand(["insert", `\\mathbf{${N}}`]);
+                      let W = A.getValue(q);
+                      W = W.replace(/\\mathrm{([^}]*)}/g, "$1").replace(/\\mathbf{([^}]*)}/g, "$1").replace(/\\mathit{([^}]*)}/g, "$1").replace(/\\mathbfit{([^}]*)}/g, "$1"), N && u.italic ? A.executeCommand(["insert", `\\mathbfit{${W}}`]) : N ? A.executeCommand(["insert", `\\mathbf{${W}}`]) : u.italic ? A.executeCommand(["insert", `\\mathit{${W}}`]) : A.executeCommand(["insert", `\\mathrm{${W}}`]);
                     }
-                    oe((N) => ({ ...N, bold: O }));
+                    oe((W) => ({ ...W, bold: N }));
                   }
                 } else if (p.action === "ITALIC") {
-                  if (W) {
-                    W.focus();
-                    const O = !E.italic;
-                    window.__cmeManualItalic = O;
-                    const q = W.selection;
+                  if (A) {
+                    A.focus();
+                    const N = !u.italic;
+                    window.__cmeManualItalic = N;
+                    const q = A.selection;
                     if (q && !q.isCollapsed) {
-                      let N = W.getValue(q);
-                      N = N.replace(/\\mathrm{([^}]*)}/g, "$1"), W.executeCommand(["insert", `\\mathit{${N}}`]);
+                      let W = A.getValue(q);
+                      W = W.replace(/\\mathrm{([^}]*)}/g, "$1").replace(/\\mathbf{([^}]*)}/g, "$1").replace(/\\mathit{([^}]*)}/g, "$1").replace(/\\mathbfit{([^}]*)}/g, "$1"), u.bold && N ? A.executeCommand(["insert", `\\mathbfit{${W}}`]) : u.bold ? A.executeCommand(["insert", `\\mathbf{${W}}`]) : N ? A.executeCommand(["insert", `\\mathit{${W}}`]) : A.executeCommand(["insert", `\\mathrm{${W}}`]);
                     }
-                    oe((N) => ({ ...N, italic: O }));
+                    oe((W) => ({ ...W, italic: N }));
                   }
                 } else p.action === "UNDO" ? (le = h.current) == null || le.executeCommand("undo") : p.action === "REDO" ? (re = h.current) == null || re.executeCommand("redo") : G(p.insert);
               }
             },
-            (R.isTemplate || R.label === "√(□)" || R.isMatrix || p.isWidget) && p.insert && !p.action && !p.forceLabel ? /* @__PURE__ */ e.createElement(
+            (H.isTemplate || H.label === "√(□)" || H.isMatrix || p.isWidget) && p.insert && !p.action && !p.forceLabel ? /* @__PURE__ */ e.createElement(
               "math-field",
               {
                 "read-only": !0,
@@ -4262,12 +4261,12 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
         ref: (l) => {
           l && requestAnimationFrame(() => {
             const c = l.getBoundingClientRect(), d = document.querySelector(".cme-editor-popup");
-            let w = g.cx - c.width / 2, u = g.y;
+            let x = g.cx - c.width / 2, w = g.y;
             if (d) {
               const f = d.getBoundingClientRect();
-              w + c.width > f.right - 4 && (w = f.right - c.width - 4), w < f.left + 4 && (w = f.left + 4), u + c.height > f.bottom - 4 && (u = f.bottom - c.height - 4);
+              x + c.width > f.right - 4 && (x = f.right - c.width - 4), x < f.left + 4 && (x = f.left + 4), w + c.height > f.bottom - 4 && (w = f.bottom - c.height - 4);
             }
-            w + c.width > window.innerWidth - 4 && (w = window.innerWidth - c.width - 4), u + c.height > window.innerHeight - 4 && (u = window.innerHeight - c.height - 4), w < 4 && (w = 4), l.style.left = `${w}px`, l.style.top = `${u}px`, l.style.transform = "none", l.style.visibility = "visible";
+            x + c.width > window.innerWidth - 4 && (x = window.innerWidth - c.width - 4), w + c.height > window.innerHeight - 4 && (w = window.innerHeight - c.height - 4), x < 4 && (x = 4), l.style.left = `${x}px`, l.style.top = `${w}px`, l.style.transform = "none", l.style.visibility = "visible";
           });
         },
         className: "cme-more-popup",
@@ -4289,7 +4288,7 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
           className: `cme-more-popup-btn ${l.cls || ""}`,
           title: l.title || l.label || l.insert,
           onMouseDown: (d) => {
-            d.preventDefault(), G(l.insert), y(null);
+            d.preventDefault(), G(l.insert), E(null);
           }
         },
         l.insert && !l.action && (l.cls === "template" || l.isWidget) ? /* @__PURE__ */ e.createElement(
@@ -4348,7 +4347,7 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
           x: m.x,
           y: m.y,
           onSelect: (l, c) => {
-            We(m.type, l, c), A(null);
+            We(m.type, l, c), C(null);
           },
           onMouseEnter: () => {
           },
@@ -4418,7 +4417,7 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
           "violet",
           "gold"
         ].map((l) => {
-          const c = E.color === l || l === "black" && (E.color === "none" || !E.color);
+          const c = u.color === l || l === "black" && (u.color === "none" || !u.color);
           return /* @__PURE__ */ e.createElement(
             "div",
             {
@@ -4434,8 +4433,8 @@ function ut({ mode: t, onInsert: r, onClose: i, initialLatex: a, isEditing: n })
               },
               onMouseDown: (d) => {
                 d.preventDefault(), d.stopPropagation();
-                const w = h.current;
-                w && typeof w.applyStyle == "function" && (w.focus(), w.applyStyle({ color: l === "black" ? "none" : l }), Z()), x(null);
+                const x = h.current;
+                x && typeof x.applyStyle == "function" && (x.focus(), x.applyStyle({ color: l === "black" ? "none" : l }), Z()), y(null);
               }
             }
           );
@@ -4590,61 +4589,61 @@ function wt(t) {
 `), r.trim();
 }
 function St({ value: t, onChange: r }) {
-  const i = _(null), a = _(!1), [n, h] = I(null), [o, s] = I(null);
+  const i = _(null), a = _(!1), [n, h] = D(null), [o, s] = D(null);
   U(() => {
     a.current = !!n;
   }, [n]), U(() => () => {
     window.__ckMathWidgetClickHandler = null;
   }, []);
-  const m = z((C) => {
-    s(null), a.current = !0, h(C);
-  }, []), A = z(() => {
+  const m = z((L) => {
+    s(null), a.current = !0, h(L);
+  }, []), C = z(() => {
     a.current = !1, h(null), s(null);
-  }, []), [k, v] = I(!1), [b, x] = I(!1), [g, y] = I(!1), D = z((C) => {
-    const S = i.current;
-    if (!(!S || !(C != null && C.trim()))) {
+  }, []), [k, v] = D(!1), [b, y] = D(!1), [g, E] = D(!1), R = z((L) => {
+    const T = i.current;
+    if (!(!T || !(L != null && L.trim()))) {
       if (o) {
-        const M = be(S, o.modelElement) ? o.modelElement : null;
-        M ? S.model.change((T) => {
-          const L = T.createElement("mathInline", { latex: C.trim() }), V = T.createPositionBefore(M);
-          T.insert(L, V), T.remove(M), T.setSelection(T.createPositionAfter(L));
-        }) : S.model.change((T) => {
-          const L = T.createElement("mathInline", { latex: C.trim() });
-          S.model.insertContent(L);
+        const M = be(T, o.modelElement) ? o.modelElement : null;
+        M ? T.model.change((B) => {
+          const S = B.createElement("mathInline", { latex: L.trim() }), V = B.createPositionBefore(M);
+          B.insert(S, V), B.remove(M), B.setSelection(B.createPositionAfter(S));
+        }) : T.model.change((B) => {
+          const S = B.createElement("mathInline", { latex: L.trim() });
+          T.model.insertContent(S);
         }), s(null);
       } else if (k) {
-        const M = wt(C.trim());
+        const M = wt(L.trim());
         if (!M) return;
-        S.model.change((T) => {
-          const L = T.createText(M);
-          S.model.insertContent(L);
+        T.model.change((B) => {
+          const S = B.createText(M);
+          T.model.insertContent(S);
         });
       } else
-        S.model.change((M) => {
-          const T = M.createElement("mathInline", { latex: C.trim() });
-          S.model.insertContent(T);
-          const L = M.createPositionAfter(T);
-          M.insertText(" ", L), M.setSelection(L.getShiftedBy(1));
+        T.model.change((M) => {
+          const B = M.createElement("mathInline", { latex: L.trim() });
+          T.model.insertContent(B);
+          const S = M.createPositionAfter(B);
+          M.insertText(" ", S), M.setSelection(S.getShiftedBy(1));
         });
-      S.editing.view.focus();
+      T.editing.view.focus();
     }
-  }, [k, o]), B = me(() => gt(m), [m]), F = z((C) => {
-    i.current = C;
-    const S = (L, V) => {
+  }, [k, o]), I = me(() => gt(m), [m]), F = z((L) => {
+    i.current = L;
+    const T = (S, V) => {
       if (a.current || !V) return;
       const Q = /^\\ce\{/.test(V);
-      a.current = !0, s({ modelElement: L, latex: V }), h(Q ? "chem" : "math");
+      a.current = !0, s({ modelElement: S, latex: V }), h(Q ? "chem" : "math");
     };
-    C.mathWidgetClickHandler = S, window.__ckMathWidgetClickHandler = S;
-    const M = C.ui.getEditableElement();
+    L.mathWidgetClickHandler = T, window.__ckMathWidgetClickHandler = T;
+    const M = L.ui.getEditableElement();
     if (!M || M._ckMathClickAttached) return;
     M._ckMathClickAttached = !0;
-    const T = (L) => {
+    const B = (S) => {
       var Q;
-      const V = Te(L.target);
-      V && L.button === 0 && (L.preventDefault(), L.stopPropagation(), (Q = L.stopImmediatePropagation) == null || Q.call(L), ge(C, null, ee(V), V));
+      const V = Te(S.target);
+      V && S.button === 0 && (S.preventDefault(), S.stopPropagation(), (Q = S.stopImmediatePropagation) == null || Q.call(S), ge(L, null, ee(V), V));
     };
-    M.addEventListener("mousedown", T, !0), M.addEventListener("click", T, !0);
+    M.addEventListener("mousedown", B, !0), M.addEventListener("click", B, !0);
   }, []);
   return /* @__PURE__ */ e.createElement("div", { style: { position: "relative", display: "flex", flexDirection: "column", gap: "8px" } }, /* @__PURE__ */ e.createElement("style", null, `
         .ck-powered-by { display: none !important; }
@@ -4677,14 +4676,14 @@ function St({ value: t, onChange: r }) {
     {
       type: "checkbox",
       checked: k,
-      onChange: (C) => v(C.target.checked),
+      onChange: (L) => v(L.target.checked),
       style: { width: "16px", minHeight: "16px", cursor: "pointer", margin: 0 }
     }
   ), /* @__PURE__ */ e.createElement("span", null, "Insert as editable Unicode text (allows character-by-character deletion)"))), /* @__PURE__ */ e.createElement("div", { style: { marginTop: "10px", marginBottom: "10px" } }, /* @__PURE__ */ e.createElement(
     "button",
     {
       type: "button",
-      onClick: () => y(!0),
+      onClick: () => E(!0),
       style: {
         padding: "6px 12px",
         backgroundColor: "#0f766e",
@@ -4722,14 +4721,14 @@ function St({ value: t, onChange: r }) {
   } }, /* @__PURE__ */ e.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid #ccc", paddingBottom: "10px", marginBottom: "20px" } }, /* @__PURE__ */ e.createElement("h3", { style: { margin: 0 } }, "Question Preview"), /* @__PURE__ */ e.createElement(
     "button",
     {
-      onClick: () => y(!1),
+      onClick: () => E(!1),
       style: { background: "transparent", border: "none", fontSize: "20px", cursor: "pointer" }
     },
     "×"
   )), /* @__PURE__ */ e.createElement("div", { style: { fontSize: "16px", lineHeight: "1.6" } }, /* @__PURE__ */ e.createElement(lt, { value: t })), /* @__PURE__ */ e.createElement("div", { style: { marginTop: "30px", textAlign: "right" } }, /* @__PURE__ */ e.createElement(
     "button",
     {
-      onClick: () => y(!1),
+      onClick: () => E(!1),
       style: { padding: "8px 16px", backgroundColor: "#e2e8f0", border: "none", borderRadius: "4px", cursor: "pointer" }
     },
     "Close"
@@ -4756,7 +4755,7 @@ function St({ value: t, onChange: r }) {
           Qe,
           Xe,
           dt,
-          B
+          I
         ],
         toolbar: {
           items: [
@@ -4790,16 +4789,16 @@ function St({ value: t, onChange: r }) {
           ]
         }
       },
-      onChange: (C, S) => {
-        r && r(S.getData());
+      onChange: (L, T) => {
+        r && r(T.getData());
       }
     }
   ), n && /* @__PURE__ */ e.createElement(
     ut,
     {
       mode: n,
-      onInsert: D,
-      onClose: A,
+      onInsert: R,
+      onClose: C,
       initialLatex: (o == null ? void 0 : o.latex) || "",
       isEditing: !!o
     }
