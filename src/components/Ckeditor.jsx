@@ -4123,9 +4123,10 @@ function MatrixHoverGrid({ matrixType, x, y, onSelect, onMouseEnter, onMouseLeav
   );
 }
 
-/* ══════════════════════════════════════════════════════════
-   MathChemPopup — same as CustomMathEditor popup
-   ══════════════════════════════════════════════════════════ */
+let globalIsTyping = false;
+let globalTypingTimeout = null;
+let globalPopupMf = null;
+
 function MathChemPopup({ mode, onInsert, onClose, initialLatex, isEditing }) {
   const popupMfRef = useRef(null);
   const [activeGroup, setActiveGroup] = useState(0);
@@ -4180,32 +4181,33 @@ function MathChemPopup({ mode, onInsert, onClose, initialLatex, isEditing }) {
     fontSize: 'auto'
   });
 
-let globalIsTyping = false;
-let globalTypingTimeout = null;
-
   const updateActiveStyles = useCallback(() => {
     if (globalIsTyping) return;
+    if (window.__cmeIgnoreStyleUpdate && Date.now() - window.__cmeIgnoreStyleUpdate < 150) return;
     const mf = popupMfRef.current;
     if (!mf || typeof mf.queryStyle !== 'function') return;
     try {
-      const bold = (
-        mf.queryStyle({ fontSeries: 'bold' }) === 'all' ||
+      const bold = window.__cmeManualBold !== undefined ? window.__cmeManualBold : (
         mf.queryStyle({ fontSeries: 'b' }) === 'all' ||
         mf.queryStyle({ variantStyle: 'bold' }) === 'all'
       );
 
-      const mlItalic = (
+      const mlItalic = window.__cmeManualItalic !== undefined ? window.__cmeManualItalic : (
         mf.queryStyle({ variantStyle: 'italic' }) === 'all' ||
         mf.queryStyle({ shape: 'it' }) === 'all'
       );
 
-      const currentFont = ['roman', 'sans-serif', 'monospace'].find(
-        (f) => mf.queryStyle({ fontFamily: f }) === 'all'
-      ) || 'none';
+      const currentFont = window.__cmeManualFontFamily !== undefined ? window.__cmeManualFontFamily : (
+        ['roman', 'sans-serif', 'monospace'].find(
+          (f) => mf.queryStyle({ fontFamily: f }) === 'all'
+        ) || 'none'
+      );
 
-      const currentSize = [5, 7, 9].find(
-        (sz) => mf.queryStyle({ fontSize: sz }) === 'all'
-      ) || 'auto';
+      const currentSize = window.__cmeManualFontSize !== undefined ? window.__cmeManualFontSize : (
+        [5, 7, 9].find(
+          (sz) => mf.queryStyle({ fontSize: sz }) === 'all'
+        ) || 'auto'
+      );
 
       const currentColor = [
         'black', 'dimgray', 'gray', 'darkgray', 'silver', 'white',
@@ -4217,8 +4219,8 @@ let globalTypingTimeout = null;
       ) || 'none';
 
       setActiveStyles(prev => ({
-        bold: prev.bold,
-        italic: prev.italic,
+        bold,
+        italic: mlItalic,
         fontFamily: currentFont,
         fontSize: String(currentSize),
         color: currentColor,
@@ -4269,7 +4271,8 @@ let globalTypingTimeout = null;
   }, [activeGroup]);
 
   useEffect(() => {
-    const mf = popupMfRef.current;
+    if (globalIsTyping) return;
+    const mf = globalPopupMf;
     if (!mf) return;
     
     // Register custom macros for perfectly synchronized double arrows
@@ -4317,13 +4320,17 @@ let globalTypingTimeout = null;
   }, [mode, initialLatex]);
 
   useEffect(() => {
-    const mf = popupMfRef.current;
+    const mf = globalPopupMf;
     if (!mf) return;
     const handleKeyDown = (e) => {
       // Forcefully apply bold/italic states via explicit LaTeX wrappers to bypass MathLive's buggy future-style insertion on empty lines
       if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
         globalIsTyping = false;
         clearTimeout(globalTypingTimeout);
+        window.__cmeManualBold = undefined;
+        window.__cmeManualItalic = undefined;
+        window.__cmeManualFontFamily = undefined;
+        window.__cmeManualFontSize = undefined;
       } else if (e.key.length === 1 || e.key === ' ') {
         globalIsTyping = true;
         clearTimeout(globalTypingTimeout);
@@ -4331,60 +4338,47 @@ let globalTypingTimeout = null;
           globalIsTyping = false;
         }, 500);
       }
-
       if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
         if (/[a-zA-Z0-9]/.test(e.key)) {
-          const actualBold = mf.queryStyle({ fontSeries: 'bold' }) === 'all' || mf.queryStyle({ fontSeries: 'b' }) === 'all' || mf.queryStyle({ variantStyle: 'bold' }) === 'all';
-          const actualItalic = mf.queryStyle({ variantStyle: 'italic' }) === 'all' || mf.queryStyle({ shape: 'it' }) === 'all';
-          const rawFamily = ['roman', 'sans-serif', 'monospace'].find(f => mf.queryStyle({ fontFamily: f }) === 'all') || 'none';
-          const actualFamily = rawFamily === 'none' ? 'roman' : rawFamily;
-          const targetFamily = activeStyles.fontFamily === 'none' || !activeStyles.fontFamily ? 'roman' : activeStyles.fontFamily;
+          e.preventDefault();
+          e.stopPropagation();
           
-          const rawActualSize = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].find(sz => mf.queryStyle({ fontSize: sz }) === 'all') || 'auto';
-          const actualSize = rawActualSize === 'auto' ? 5 : rawActualSize;
-          const targetSize = activeStyles.fontSize === 'auto' ? 5 : activeStyles.fontSize;
-          
-          const actualColor = ['black', 'dimgray', 'gray', 'darkgray', 'silver', 'white', 'red', 'orange', 'yellow', 'lime', 'cyan', 'blue', 'purple', 'magenta'].find(c => mf.queryStyle({ color: c }) === 'all') || 'none';
-          const targetColor = activeStyles.color;
+          const isSans = activeStyles.fontFamily === 'sans-serif';
+          const isMono = activeStyles.fontFamily === 'monospace';
+          const isBold = activeStyles.bold;
+          const isItalic = activeStyles.italic;
 
-          // ALWAYS force an explicit wrap for a-zA-Z0-9 to guarantee the text is upright by default 
-          // and respects our exact font families, bypassing MathLive's native math-italic variables.
-          const needsExplicitWrap = true;
+          let fontCmd = '\\mathrm';
+          if (isSans) fontCmd = '\\mathsf';
+          else if (isMono) fontCmd = '\\mathtt';
+          else if (isItalic && !isBold) fontCmd = '\\mathit';
+          else if (isBold && !isItalic) fontCmd = '\\mathbf';
 
-          if (needsExplicitWrap) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            let latex = '#?';
+          let inner = `${fontCmd}{${e.key}}`;
 
-            let inner = latex;
-            if (targetFamily === 'sans-serif') inner = `\\textsf{${inner}}`;
-            else if (targetFamily === 'monospace') inner = `\\texttt{${inner}}`;
-            else inner = `\\textrm{${inner}}`;
-
-            if (activeStyles.bold) inner = `\\textbf{${inner}}`;
-            if (activeStyles.italic) inner = `\\textit{${inner}}`;
-
-            latex = `\\text{${inner}}`;
-
-            if (targetSize !== 5) {
-               const sizeMap = { 1: '\\tiny', 2: '\\scriptsize', 3: '\\footnotesize', 4: '\\small', 5: '\\normalsize', 6: '\\large', 7: '\\Large', 8: '\\LARGE', 9: '\\huge', 10: '\\Huge' };
-               if (sizeMap[targetSize]) latex = `{${sizeMap[targetSize]} ${latex}}`;
-            } else if (actualSize !== 5) {
-               latex = `{\\normalsize ${latex}}`;
-            }
-
-            if (targetColor !== 'none') {
-               latex = `\\textcolor{${targetColor}}{${latex}}`;
-            } else if (actualColor !== 'none') {
-               latex = `\\textcolor{black}{${latex}}`;
-            }
-
-            mf.executeCommand(['insert', latex]);
-            mf.executeCommand(['insert', e.key]);
-            return;
+          if (isBold && isItalic) {
+              inner = `\\mathbfit{${e.key}}`;
+              if (isSans) inner = `\\boldsymbol{\\mathsf{${e.key}}}`;
+              if (isMono) inner = `\\boldsymbol{\\mathtt{${e.key}}}`;
+          } else if (isBold && (isSans || isMono)) {
+              inner = `\\boldsymbol{${inner}}`;
           }
 
+          let latex = inner;
+
+          // Apply Size
+          const sizeVal = activeStyles.fontSize === 'auto' ? 5 : parseInt(activeStyles.fontSize, 10);
+          if (sizeVal !== 5) {
+             const sizeMap = { 1: '\\tiny', 2: '\\scriptsize', 3: '\\footnotesize', 4: '\\small', 5: '\\normalsize', 6: '\\large', 7: '\\Large', 8: '\\LARGE', 9: '\\huge', 10: '\\Huge' };
+             if (sizeMap[sizeVal]) latex = `{${sizeMap[sizeVal]} ${latex}}`;
+          }
+
+          // Apply Color
+          if (activeStyles.color !== 'none') {
+             latex = `\\textcolor{${activeStyles.color}}{${latex}}`;
+          }
+
+          mf.executeCommand(['insert', latex]);
           return;
         }
       }
@@ -4430,7 +4424,7 @@ let globalTypingTimeout = null;
 
   /* ── Auto-scroll caret into view ── */
   useEffect(() => {
-    const popupMf = popupMfRef.current;
+    const popupMf = globalPopupMf;
     if (!popupMf) return;
 
     const handleSelectionChange = () => {
@@ -4461,7 +4455,7 @@ let globalTypingTimeout = null;
   }, [updateActiveStyles]);
 
   const insertAtCursor = useCallback((sym) => {
-    const mf = popupMfRef.current;
+    const mf = globalPopupMf;
     if (!mf) return;
     mf.focus();
     mf.executeCommand(['insert', sym]);
@@ -4493,7 +4487,7 @@ let globalTypingTimeout = null;
   };
 
   const handleInsert = () => {
-    const mf = popupMfRef.current;
+    const mf = globalPopupMf;
     if (!mf) return;
     let latex = mf.getValue ? mf.getValue() : mf.value;
     if (!latex || latex.trim() === '') { onClose(); return; }
@@ -4510,12 +4504,14 @@ let globalTypingTimeout = null;
       style={(!isMaximized && !isMinimized) ? { transform: `translate(${position.x}px, ${position.y}px)` } : { transform: 'none' }}
       onMouseDown={(e) => e.stopPropagation()}
     >
-      <div
-        className="cme-popup-header"
-        onMouseDown={handleDragStart}
-        style={{ cursor: isDragging ? 'grabbing' : (isMaximized ? 'default' : 'grab') }}
-      >
-        <span>{isEditing ? (mode === 'math' ? 'Edit Math Formula' : 'Edit Chemistry Formula') : (mode === 'math' ? 'Math Editor' : 'Chemistry Editor')}</span>
+      <div className="cme-popup-topbar">
+        <div
+          className="cme-popup-header"
+          onMouseDown={handleDragStart}
+          style={{ cursor: isDragging ? 'grabbing' : (isMaximized ? 'default' : 'grab') }}
+        >
+          <span>{isEditing ? (mode === 'math' ? 'Edit Math Formula' : 'Edit Chemistry Formula') : (mode === 'math' ? 'Math Editor' : 'Chemistry Editor')}</span>
+        </div>
         <div className="cme-popup-controls">
           <button type="button" className="cme-popup-btn" onClick={toggleMinimize} title="Minimize">—</button>
           <button type="button" className="cme-popup-btn" onClick={toggleMaximize} title="Maximize">⤢</button>
@@ -4635,13 +4631,13 @@ let globalTypingTimeout = null;
                     const isFont = item.label === 'Font...';
                     const isSize = item.label === 'Size';
 
-                    const isFontActive = isFont && activeStyles.fontFamily !== 'none' && activeStyles.fontFamily !== 'roman';
-                    const isSizeActive = isSize && activeStyles.fontSize !== 'auto' && activeStyles.fontSize !== 5;
+                    const isFontActive = isFont && activeStyles.fontFamily !== 'none';
+                    const isSizeActive = isSize && activeStyles.fontSize !== 'auto' && activeStyles.fontSize !== '5';
 
                     const selectValue = isFont
-                      ? (activeStyles.fontFamily === 'none' || activeStyles.fontFamily === 'roman' ? '' : activeStyles.fontFamily)
+                      ? (activeStyles.fontFamily === 'none' ? '' : activeStyles.fontFamily)
                       : (isSize
-                        ? (activeStyles.fontSize === 'auto' || activeStyles.fontSize === 5 ? '' : activeStyles.fontSize.toString())
+                        ? (activeStyles.fontSize === 'auto' || activeStyles.fontSize === '5' ? '' : activeStyles.fontSize)
                         : '');
 
                     return (
@@ -4664,13 +4660,13 @@ let globalTypingTimeout = null;
                         }}
                         onChange={(e) => {
                           const val = e.target.value;
-                          const mf = popupMfRef.current;
-                          if (!mf) return;
+                          const mf = globalPopupMf;
+                          if (!mf || typeof mf.applyStyle !== 'function') return;
                           mf.focus();
                           if (isFont) {
-                            mf.executeCommand(['applyStyle', { fontFamily: val || 'none' }]);
+                            mf.applyStyle({ fontFamily: val || 'none' });
                           } else if (isSize) {
-                            mf.executeCommand(['applyStyle', { fontSize: val ? parseInt(val, 10) : 'auto' }]);
+                            mf.applyStyle({ fontSize: val ? parseInt(val, 10) : 'auto' });
                           }
                           updateActiveStyles();
                         }}
@@ -4678,7 +4674,7 @@ let globalTypingTimeout = null;
                         <option value="">{item.label}</option>
                         {isFont && (
                           <>
-                            <option value="roman">Normal (Times)</option>
+                            <option value="roman">Times</option>
                             <option value="sans-serif">Helvetica</option>
                             <option value="monospace">Courier</option>
                           </>
@@ -4710,6 +4706,13 @@ let globalTypingTimeout = null;
                             if (activeMatrix?.type === item.insert) {
                               setActiveMatrix(null);
                             } else {
+                              if (!globalIsTyping) {
+                                window.__cmeManualBold = undefined;
+                                window.__cmeManualItalic = undefined;
+                                window.__cmeManualFontFamily = undefined;
+                                window.__cmeManualFontSize = undefined;
+                              } else {
+                              }
                               const rect = e.currentTarget.getBoundingClientRect();
                               setActiveMatrix({
                                 type: item.insert,
@@ -4769,14 +4772,42 @@ let globalTypingTimeout = null;
                           if (mf) {
                             mf.focus();
                             const newBold = !activeStyles.bold;
-                            mf.executeCommand(['applyStyle', { fontSeries: newBold ? 'b' : 'auto' }]);
+                            window.__cmeManualBold = newBold;
+                            const sel = mf.selection;
+                            if (sel && !sel.isCollapsed) {
+                              let selText = mf.getValue(sel);
+                              selText = selText.replace(/\\mathrm{([^}]*)}/g, '$1').replace(/\\mathbf{([^}]*)}/g, '$1').replace(/\\mathit{([^}]*)}/g, '$1').replace(/\\mathbfit{([^}]*)}/g, '$1');
+                              if (newBold && activeStyles.italic) {
+                                mf.executeCommand(['insert', `\\mathbfit{${selText}}`]);
+                              } else if (newBold) {
+                                mf.executeCommand(['insert', `\\mathbf{${selText}}`]);
+                              } else if (activeStyles.italic) {
+                                mf.executeCommand(['insert', `\\mathit{${selText}}`]);
+                              } else {
+                                mf.executeCommand(['insert', `\\mathrm{${selText}}`]);
+                              }
+                            }
                             setActiveStyles(prev => ({ ...prev, bold: newBold }));
                           }
                         } else if (item.action === 'ITALIC') {
                           if (mf) {
                             mf.focus();
                             const newItalic = !activeStyles.italic;
-                            mf.executeCommand(['applyStyle', { variantStyle: newItalic ? 'italic' : 'up' }]);
+                            window.__cmeManualItalic = newItalic;
+                            const sel = mf.selection;
+                            if (sel && !sel.isCollapsed) {
+                              let selText = mf.getValue(sel);
+                              selText = selText.replace(/\\mathrm{([^}]*)}/g, '$1').replace(/\\mathbf{([^}]*)}/g, '$1').replace(/\\mathit{([^}]*)}/g, '$1').replace(/\\mathbfit{([^}]*)}/g, '$1');
+                              if (activeStyles.bold && newItalic) {
+                                mf.executeCommand(['insert', `\\mathbfit{${selText}}`]);
+                              } else if (activeStyles.bold) {
+                                mf.executeCommand(['insert', `\\mathbf{${selText}}`]);
+                              } else if (newItalic) {
+                                mf.executeCommand(['insert', `\\mathit{${selText}}`]);
+                              } else {
+                                mf.executeCommand(['insert', `\\mathrm{${selText}}`]);
+                              }
+                            }
                             setActiveStyles(prev => ({ ...prev, italic: newItalic }));
                           }
                         } else if (item.action === 'UNDO') {
@@ -4914,7 +4945,10 @@ let globalTypingTimeout = null;
         }}
       >
         <math-field
-          ref={popupMfRef}
+          ref={(el) => {
+            popupMfRef.current = el;
+            globalPopupMf = el;
+          }}
           class="cme-mathfield"
           tabIndex={0}
           math-virtual-keyboard-policy="manual"
